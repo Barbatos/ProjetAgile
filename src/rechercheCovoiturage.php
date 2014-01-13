@@ -10,14 +10,14 @@ require_once('templates/header.php');
 </table>
 
 <?php 
-if(isset(!P('rechercheCovoiturage')) && empty($erreur)){ ?>
+if(isset(!P('rechercheCovoiturage')) && $erreurBool){ ?>
 <div>
 	<?php echo $erreur; ?>
 </div>
 <?php } 
 
 function isErreur($value){
-	if(empty(erreur)){
+	if($erreurBool){
 		switch($value){
 			case 'villeD':{ echo 'value="'. $villeDepart.'"';}break;
 			case 'villeA':{echo 'value="'. $villeArriver.'"';}break;
