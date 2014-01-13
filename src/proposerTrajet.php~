@@ -98,10 +98,10 @@
 <html>
 	<head>
 		<?php require_once('includes/init.php'); ?>
-		<script type="text/javascript" src="js/calendrier.js"></script>
-		<script type="text/javascript" src="js/pickHour.js"></script>	
-		<link rel="stylesheet" media="screen" type="text/css" title="Design" href="css/design.css" />
-		<link rel="stylesheet" media="screen" type="text/css" title="Design" href="css/heure_js.css" />
+		<script type="text/javascript" src="calendrier.js"></script>
+		<script type="text/javascript" src="pickHour.js"></script>	
+		<link rel="stylesheet" media="screen" type="text/css" title="Design" href="design.css" />
+		<link rel="stylesheet" media="screen" type="text/css" title="Design" href="heure_js.css" />
 	</head>
 	<body>
 		<!-- Tableau obligatoire ! C'est lui qui contiendra le calendrier ! -->
