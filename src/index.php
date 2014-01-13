@@ -14,10 +14,12 @@ $stmt = $bdd->prepare("SELECT tra.id_trajet, vi1.nom_ville as ville_d, vi2.nom_v
 ?>
 
 <form name="formulaire" action="" method="post" enctype="multipart/form-data">
-	<h1> Accueil Site Co-Voiturage </h1>
+	<div id="titre">
+	<h1> Accueil Site Covoiturage </h1>
+	</div>
 	<br/>
 	<fieldset>
-		<legend> Derniers co-voiturage proposés </legend>
+		<legend> Derniers covoiturages proposés </legend>
 		<select size="10">
 		<?php
 			foreach($data as $d)

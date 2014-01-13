@@ -42,8 +42,8 @@ require_once('templates/header.php');
 		<input id="mdp" type="password" name="mdp" placeholder="Votre mot de passe"><br/>
 		<br/>
 		
-		<a href="..." > <input type="button" value="Mot de passe oublié" class="btn btn-default"> </a>
-		<a href="..." > <input type="button" value="Créer un compte" class="btn btn-default"> </a>
+		<button class="btn btn-primary">Mot de passe oublié</button>
+		<button class="btn btn-primary">Créer un compte</button>
 	</fieldset>
 	<div id="boutonfin">
 	<fieldset>
