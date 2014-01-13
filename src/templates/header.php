@@ -23,13 +23,13 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#accueil">Accueil</a></li>
+            <li class="active"><a href="index.php">Accueil</a></li>
             <li><a href="#chercher">Chercher covoiturage</a></li>
 						<li><a href="#proposer">Proposer covoiturage</a></li>         
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#inscription">Inscription</a></li>
-            <li><a href="#connexion">Connexion</a></li>
+            <li><a href="inscription.php">Inscription</a></li>
+            <li><a href="connexion.php">Connexion</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
