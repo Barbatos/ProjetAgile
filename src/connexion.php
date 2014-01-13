@@ -1,6 +1,8 @@
 <?php 
 require_once('includes/init.php');
 
+$pageActive = "Connexion";
+
 if(P()){
 	if(P('identifiant') && P('mdp')){
 		$stmt = $bdd->prepare("SELECT * FROM UTILISATEUR WHERE LOGIN = :login AND MDP = :password");

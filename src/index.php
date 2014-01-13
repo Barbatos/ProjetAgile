@@ -1,5 +1,8 @@
 <?php 
 require_once('includes/init.php');
+
+$pageActive = "Accueil";
+
 require_once('templates/header.php');
 
 $stmt = $bdd->prepare("SELECT tra.id_trajet, vi1.nom_ville as ville_d, vi2.nom_ville as ville_a,

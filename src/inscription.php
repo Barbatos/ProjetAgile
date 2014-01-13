@@ -1,6 +1,8 @@
 <?php 
 require_once('includes/init.php');
 
+$pageActive = "Inscription";
+
 if(P()){
 	if(P('nom') && P('prenom') && P('motdepasse') && P('tel') && P('adresseMail') && P('jourNaiss') && P('moisNaiss') && P('anneeNaiss')){
 		$stmt = $bdd->prepare("

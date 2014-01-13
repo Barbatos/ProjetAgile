@@ -15,27 +15,20 @@
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
           <a class="navbar-brand" href="index.php">Covoiturage</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="index.php">Accueil</a></li>
-            <li><a href="RechercheCovoiturage.php">Chercher covoiturage</a></li>
-	    <li><a href="proposerTrajet.php">Proposer covoiturage</a></li>         
+            <li <?= ($pageActive == "Accueil") ? 'class="active"' : '' ?>><a href="index.php">Accueil</a></li>
+            <li <?= ($pageActive == "Chercher") ? 'class="active"' : '' ?>><a href="RechercheCovoiturage.php">Chercher covoiturage</a></li>
+	          <li <?= ($pageActive == "Proposer") ? 'class="active"' : '' ?>><a href="proposerTrajet.php">Proposer covoiturage</a></li>         
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            
             <?php if(est_connecte()){ ?>
             <li><a href="deconnexion.php">Déconnexion</a></li>
             <?php } else { ?>
-            <li><a href="inscription.php">Inscription</a></li>
-            <li><a href="connexion.php">Connexion</a></li>
+            <li <?= ($pageActive == "Inscription") ? 'class="active"' : '' ?>><a href="inscription.php">Inscription</a></li>
+            <li <?= ($pageActive == "Connexion") ? 'class="active"' : '' ?>><a href="connexion.php">Connexion</a></li>
             <?php } ?>
           </ul>
         </div>
