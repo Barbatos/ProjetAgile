@@ -18,8 +18,9 @@ if(P()){
 		$stmt->bindValue(':jour', P('jourNaiss'));
 		$stmt->bindValue(':mois', P('moisNaiss'));
 		$stmt->bindValue(':annee', P('anneeNaiss'));
+
 		if($stmt->execute()){
-			message_redirect("Vous êtes maintenant inscrit ! Vous pouvez maintenant vous connecter au site.", "connexion.php");
+			message_redirect("Votre inscription est terminée ! Vous pouvez maintenant vous connecter au site.", "connexion.php", 1);
 		}
 		else {
 			message_redirect("Une erreur s'est produite lors de l'inscription. Veuillez réessayer.", "inscription.php");
