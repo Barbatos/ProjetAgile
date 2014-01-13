@@ -7,6 +7,7 @@
 			<!-- Intégration du CSS Bootstrap -->
 			<link href="./css/bootstrap.css" rel="stylesheet" media="screen">
 			<link href="./css/connexion.css" rel="stylesheet" media="screen">
+			<link href="./css/inscription.css" rel="stylesheet" media="screen">
 	</head>
 <body>
 
