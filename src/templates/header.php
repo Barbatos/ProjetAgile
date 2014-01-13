@@ -5,9 +5,14 @@
 			<!-- On ouvre la fenêtre à la largeur de l'écran -->
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
 			<!-- Intégration du CSS Bootstrap -->
-			<link href="./css/bootstrap.css" rel="stylesheet" media="screen">
-			<link href="./css/connexion.css" rel="stylesheet" media="screen">
-			<link href="./css/inscription.css" rel="stylesheet" media="screen">
+			<link href="./css/bootstrap.css" rel="stylesheet" media="screen" />
+			<link href="./css/connexion.css" rel="stylesheet" media="screen" />
+			<link href="./css/inscription.css" rel="stylesheet" media="screen" />
+      <link href="./css/design.css" rel="stylesheet" media="screen" />
+      <link href="./css/heure_js.css" rel="stylesheet" media="screen" />
+
+      <script type="text/javascript" src="./js/calendrier.js"></script>
+      <script type="text/javascript" src="./js/pickHour.js"></script> 
 	</head>
 <body>
 
