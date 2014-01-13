@@ -34,7 +34,6 @@ require_once('templates/header.php');
 	</div>
 	<br/>
 	<fieldset>
-		
 		<legend> Connexion</legend>
 		<label for="identifiant"> Identifiant : </label> <br/>
 		<input id="identifiant" type="text" name="identifiant" placeholder="Votre nom d'utilisateur"><br/>
@@ -43,14 +42,15 @@ require_once('templates/header.php');
 		<input id="mdp" type="password" name="mdp" placeholder="Votre mot de passe"><br/>
 		<br/>
 		
-		<a href="..." > <input type="button" value="Mot de passe oublié"> </a>
-		<a href="..." > <input type="button" value="Créer un compte"> </a>
+		<a href="..." > <input type="button" value="Mot de passe oublié" class="btn btn-default"> </a>
+		<a href="..." > <input type="button" value="Créer un compte" class="btn btn-default"> </a>
 	</fieldset>
-	
+	<div id="boutonfin">
 	<fieldset>
-		<input type="reset"/>
-		<input name="valider" type="submit"/>
+		<button class="btn btn-danger">Effacer</button>
+		<input type="submit" class="btn btn-success btn-large" value="Envoyer"/>
 	</fieldset>
+	</div>
 </form>
 
 <?php
