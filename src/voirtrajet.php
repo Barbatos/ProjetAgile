@@ -33,7 +33,7 @@ if(P()){
 }
 
 $stmt = $bdd->prepare("
-	SELECT t.*, u.*, v1.NOM_VILLE AS NOM_VILLE_D, v2.NOM_VILLE AS NOM_VILLE_A FROM TRAJET t
+	SELECT t.*, u.*, v1.NOM_VILLE AS NOM_VILLE_D, v2.NOM_VILLE AS NOM_VILLE_A, p.ID_TRAJET AS ID_TRAJET_RESERV FROM TRAJET t
 	LEFT JOIN VILLE v1 ON v1.ID_VILLE = t.ID_VILLE_D
 	LEFT JOIN VILLE v2 ON v2.ID_VILLE = t.ID_VILLE_A
 	LEFT JOIN UTILISATEUR u ON u.ID_UTILISATEUR = t.ID_UTILISATEUR
@@ -71,11 +71,17 @@ require_once('templates/header.php');
 
       <?php 
       if(est_connecte() && ($_SESSION['id'] != $data->ID_UTILISATEUR)){
+      	if(!empty($data->ID_TRAJET_RESERV)){
+      ?>
+      	<input type="submit" class="btn large" value="Demande de réservation confirmée. Attente du conducteur...">
+      <?php 
+        } else { 
       ?>
       <form name="demanderPlace" method="post" action="">
       	<input type="submit" class="btn large" name="demanderPlace" value="Demander une place">
       </form>
       <?php
+        }
       }
       else if(!est_connecte()){
       ?>
