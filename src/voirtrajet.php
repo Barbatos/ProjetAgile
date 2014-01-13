@@ -52,7 +52,7 @@ require_once('templates/header.php');
 
 <div id="titre"><strong>Informations sur le trajet <?= $data->NOM_VILLE_D ?> -> <?= $data->NOM_VILLE_A ?></strong></div><br />
 
-Trajet ajouté le <?= date('d/m/Y à H\hi', strtotime($data->DATE_AJOUT)) ?><br /><br />
+Trajet ajouté <?= dateformat(strtotime($data->DATE_AJOUT), 0) ?><br /><br />
 
 Ville de départ : <?= $data->NOM_VILLE_D ?><br />
 Lieu de départ : <?= $data->LIEUX_D ?><br /><br />
@@ -60,7 +60,7 @@ Lieu de départ : <?= $data->LIEUX_D ?><br /><br />
 Ville d'arrivée : <?= $data->NOM_VILLE_A ?><br />
 Lieu d'arrivée : <?= $data->LIEUX_A ?><br /><br />
 
-Date de départ : <?= date('d/m/Y', strtotime($data->DATE_TRAJET)) ?><br />
+Date de départ : <?= dateformat(strtotime($data->DATE_TRAJET), 0) ?><br />
 Heure de départ : <?= date('H\hi', strtotime($data->DATE_TRAJET)) ?><br /><br />
 
 Prix : <?= $data->PRIX ?>€<br />
