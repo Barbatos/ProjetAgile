@@ -12,15 +12,15 @@
 	<body>
 <?php
 	foreach($resultat as $trajet){
-		if($trajet['nb_place_occupe'] < $trajet['nb_place'])
+		if($trajet['tr.nb_place_occupe'] < $trajet['tr.nb_place'])
 ?>
 		<tr>
 			<td><?php echo $trajet['villeDepart'];?></td>
 			<td><?php echo $trajet['villeArriver'];?></td>
-			<td><?php echo $trajet['tra.prix'];?></td>
-			<td><?php echo $trajet['tra.date_trajet'];?></td>
-			<td><?php echo $trajet['tra.nb_place'];?></td>
-			<td><a href="voirtrajet.php?id=<?php echo $trajet['tra.id'];?>" title="Detail du covoiturage">Detail</a></td>
+			<td><?php echo $trajet['tr.prix'];?></td>
+			<td><?php echo $trajet['tr.date_trajet'];?></td>
+			<td><?php echo $trajet['tr.nb_place'];?></td>
+			<td><a href="voirtrajet.php?id=<?php echo $trajet['tr.id'];?>" title="Detail du covoiturage">Detail</a></td>
 		</tr>
 <?php
 	}
