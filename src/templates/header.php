@@ -7,6 +7,7 @@
 			<!-- Intégration du CSS Bootstrap -->
 			<link href="./css/bootstrap.css" rel="stylesheet" media="screen">
 			<link href="./css/connexion.css" rel="stylesheet" media="screen">
+			<link href="./css/inscription.css" rel="stylesheet" media="screen">
 	</head>
 <body>
 
@@ -29,8 +30,13 @@
 						<li><a href="#proposer">Proposer covoiturage</a></li>         
           </ul>
           <ul class="nav navbar-nav navbar-right">
+            
+            <?php if(est_connecte()){ ?>
+            <li><a href="deconnexion.php">Déconnexion</a></li>
+            <?php } else { ?>
             <li><a href="inscription.php">Inscription</a></li>
             <li><a href="connexion.php">Connexion</a></li>
+            <?php } ?>
           </ul>
         </div>
       </div>
@@ -38,3 +44,18 @@
 
     <div class="container">
 		
+    <?php 
+    if(isset($_SESSION['errors']) && !empty($_SESSION['errors'])){
+      foreach($_SESSION['errors'] as $e){
+        echo '<br /><br /><div class="alert alert-error">'.$e['error'].'</div>';
+      }
+      $_SESSION['errors'] = array();
+    }
+
+    if(isset($_SESSION['messages']) && !empty($_SESSION['messages'])){
+      foreach($_SESSION['messages'] as $e){
+        echo '<br /><br /><div class="alert alert-success">'.$e['message'].'</div>';
+      }
+      $_SESSION['messages'] = array();
+    }
+    ?>

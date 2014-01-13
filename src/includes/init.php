@@ -26,3 +26,10 @@ if(!$bdd){
 }
 
 unset($db);
+
+// Pas de messages à afficher ? On initialise quand même 
+// les variables afin de ne pas avoir de notices de php.
+if(!isset($_SESSION['errors'])){
+	$_SESSION['errors'] = array();
+	$_SESSION['messages'] = array();
+}

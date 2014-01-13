@@ -1,16 +1,15 @@
 <?php 
 require_once('includes/init.php');
-require_once('templates/header.php');
 
-if(isset($_POST)){
+if(P()){
 	if(P('nom') && P('prenom') && P('motdepasse') && P('tel') && P('adresseMail') && P('jourNaiss') && P('moisNaiss') && P('anneeNaiss')){
 		$stmt = $bdd->prepare("
-			INSERT INTO UTILISATEUR (LOGIN, MDP, NOM, PRENOM, ID_TYPE, MAIL, TEL, JOUR_NAISS, MOIS_NAISS, ANNEE_NAISS) 
+			INSERT INTO UTILISATEUR (LOGIN, MDP, NOM, PRENOM, ID_TYPE, MAIL, TEL, DATENAISS_JOUR, DATENAISS_MOIS, DATENAISS_ANNEE) 
 			VALUES 
 			(:login, :mdp, :nom, :prenom, :type, :mail, :tel, :jour, :mois, :annee)
 		");
 		$stmt->bindValue(':login', P('login'));
-		$stmt->bindValue(':mdp', P('motdepasse'));
+		$stmt->bindValue(':mdp', sha1(P('motdepasse')));
 		$stmt->bindValue(':type', 1);
 		$stmt->bindValue(':mail', P('adresseMail'));
 		$stmt->bindValue(':tel', P('tel'));
@@ -19,23 +18,46 @@ if(isset($_POST)){
 		$stmt->bindValue(':jour', P('jourNaiss'));
 		$stmt->bindValue(':mois', P('moisNaiss'));
 		$stmt->bindValue(':annee', P('anneeNaiss'));
-		$stmt->execute();
+
+		if($stmt->execute()){
+			message_redirect("Votre inscription est terminée ! Vous pouvez maintenant vous connecter au site.", "connexion.php", 1);
+		}
+		else {
+			message_redirect("Une erreur s'est produite lors de l'inscription. Veuillez réessayer.", "inscription.php");
+		}
+
 		$stmt->closeCursor();
 	}
+	else {
+		message_redirect("Il faut remplir tous les champs !", 'inscription.php');
+	}
 }
+
+require_once('templates/header.php');
 
 ?>
 
 <form name="inscription" action="" method="post">
   	<br>
   	<fieldset>
+	<div id="legend">
   	<legend><b>Inscription :</b></legend>
-  	Nom: <input type="text" name="nom" size="30" maxlength="256" ><br/>
-  	Prénom: <input type="text" name="prenom" size="30" maxlength="256"><br/>
-  	Mot de passe: <input type="text" name="motdepasse" size="30" maxlength="256"><br/>
-  	Numéro de téléphone: <input type="text" name="tel" size="20" maxlength="20"><br />
-  	Adresse e-mail: <input type="text" name="adresseMail" size="30" maxlength="256"><br/>
-  	Date de naissance: 
+	</div>
+	<div id = "inscription">
+	<table>
+	<tr><td>Nom d'utilisateur:</td> <td><input type="text" name="login" size="30" maxlength="30"></td></tr>	
+	
+	<tr><td>Mot de passe: </td><td><input type="password" name="motdepasse" size="30" maxlength="256"></td></tr>	
+	
+  	<tr><td>Nom:</td> <td> <input type="text" name="nom" size="30" maxlength="256" ></td></tr><br/>
+  	
+	<tr><td>Prénom:</td> <td> <input type="text" name="prenom" size="30" maxlength="256"></td></tr>
+	
+  	<tr><td>Numéro de téléphone: </td> <td><input type="text" name="tel" size="20" maxlength="20"></td></tr>
+  	
+	<tr><td>Adresse e-mail: </td> <td><input type="text" name="adresseMail" size="30" maxlength="256"></td></tr>
+  
+	<tr><td>Date de naissance: </td> <td>
   	<select name="jourNaiss" >
   	<?php
   	for ($i = 1; $i < 32; $i++) //Liste des jour de naissance
@@ -60,10 +82,12 @@ if(isset($_POST)){
   	{
   		echo '<option value="'.$i.'">'.$i.'</option>';
   	}?>
-  	</select><br/>
-  
-  	<input type="submit" name="valider" value="Valider"> 
-  
+  	</select></td></tr><br/>
+	</table>
+	</div>
+	<div id = "boutonfin">
+  	<input type="submit" class="btn btn-success btn-large" value="Valider"/>
+	</div>
   	</fieldset>
 </form>	
 	
