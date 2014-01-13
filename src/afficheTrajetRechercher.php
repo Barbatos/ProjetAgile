@@ -6,6 +6,7 @@
 			<th>Prix</th>
 			<th>Date trajet</th>
 			<th>Nombre de place</th>
+			<th>Detail</th>
 		</tr>
 	</thead>
 	<body>
@@ -16,9 +17,10 @@
 		<tr>
 			<td><?php echo $trajet['villeDepart'];?></td>
 			<td><?php echo $trajet['villeArriver'];?></td>
-			<td><?php echo $trajet['prix'];?></td>
-			<td><?php echo $trajet['date_trajet'];?></td>
-			<td><?php echo $trajet['nb_place'];?></td>
+			<td><?php echo $trajet['tra.prix'];?></td>
+			<td><?php echo $trajet['tra.date_trajet'];?></td>
+			<td><?php echo $trajet['tra.nb_place'];?></td>
+			<td><a href="voirtrajet.php?id=<?php echo $trajet['tra.id'];?>" title="Detail du covoiturage">Detail</a></td>
 		</tr>
 <?php
 	}
