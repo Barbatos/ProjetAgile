@@ -3,7 +3,9 @@ require_once('includes/init.php');
 require_once('templates/header.php');
 ?>
 <form name="formulaire" action="" method="post" enctype="multipart/form-data">
+	<div id="titre">
 	<h1> Connexion site Co-Voiturage </h1>
+	</div>
 	<br/>
 	<fieldset>
 		

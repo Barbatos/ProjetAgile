@@ -6,6 +6,7 @@
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
 			<!-- Intégration du CSS Bootstrap -->
 			<link href="./css/bootstrap.css" rel="stylesheet" media="screen">
+			<link href="./css/connexion.css" rel="stylesheet" media="screen">
 	</head>
 <body>
 
@@ -31,7 +32,7 @@
             <li><a href="inscription.php">Inscription</a></li>
             <li><a href="connexion.php">Connexion</a></li>
           </ul>
-        </div><!--/.nav-collapse -->
+        </div>
       </div>
     </div>
 
