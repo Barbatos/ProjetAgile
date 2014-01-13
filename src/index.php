@@ -2,7 +2,7 @@
 require_once('includes/init.php');
 require_once('templates/header.php');
 
-$stmt = $bdd->prepare("SELECT id_trajet, nom_ville as ville_d, nom_ville as ville_a, tochar(date_trajet, 'DD/MM/YYYY') as date
+$stmt = $bdd->prepare("SELECT id_trajet, nom_ville as ville_d, nom_ville as ville_a, to_char(date_trajet, 'DD/MM/YYYY') as date
 							FROM TRAJET tra 
 							JOIN VILLE vi1 ON tra.id_ville_d = vi1.id_ville
 							JOIN VILLE vi2 ON tra.id_ville_a = vi2.id_ville
