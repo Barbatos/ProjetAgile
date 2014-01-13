@@ -38,3 +38,18 @@
 
     <div class="container">
 		
+    <?php 
+    if(isset($_SESSION['errors']) && !empty($_SESSION['errors'])){
+      foreach($_SESSION['errors'] as $e){
+        echo '<br /><br /><div class="alert alert-error">'.$e['error'].'</div>';
+      }
+      $_SESSION['errors'] = array();
+    }
+
+    if(isset($_SESSION['messages']) && !empty($_SESSION['messages'])){
+      foreach($_SESSION['messages'] as $e){
+        echo '<br /><br /><div class="alert alert-success">'.$e['message'].'</div>';
+      }
+      $_SESSION['messages'] = array();
+    }
+    ?>
