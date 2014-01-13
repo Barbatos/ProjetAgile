@@ -33,7 +33,7 @@ if($erreurBool && isset(P('rechercheCovoiturage'))){
 	$query->closeCursor();
 }
 
-if(isset(!P('rechercheCovoiturage')) && $erreurBool){
+if(isset(!P('rechercheCovoiturage'))){
 	require_once('rechercheCovoiturage.php');
 }
 else if(isset(P('rechercheCovoiturage'))){
