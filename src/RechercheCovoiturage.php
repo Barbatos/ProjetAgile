@@ -31,7 +31,7 @@ if(empty($erreur)){
 }
 
 if(isset(!P('rechercheCovoiturage')) && empty($erreur)){
-	require_once('recharcheCovoiturege.php');
+	require_once('rechercheCovoiturage.php');
 }
 else if(isset(P('rechercheCovoiturage'))){
 	require_once('afficheTrajetRechercher.php');
