@@ -2,11 +2,11 @@
 require_once('includes/init.php');
 require_once('templates/header.php');
 
-$stmt = $bdd->prepare("SELECT id_trajet, nom_ville as ville_d, nom_ville as ville_a, to_char(date_trajet, 'DD/MM/YYYY') as date
+$stmt = $bdd->prepare("SELECT tra.id_trajet, vi1.nom_ville as ville_d, vi2.nom_ville as ville_a, tra.date_trajet
 							FROM TRAJET tra 
 							JOIN VILLE vi1 ON tra.id_ville_d = vi1.id_ville
 							JOIN VILLE vi2 ON tra.id_ville_a = vi2.id_ville
-							WHERE ROWNUM < 10 ORDER BY tra.date_trajet asc");
+							ORDER BY tra.date_trajet DESC LIMIT 10");
 	$stmt->execute();
 	$data = $stmt->fetchAll(PDO::FETCH_OBJ);
 	$stmt->closeCursor();
@@ -17,11 +17,12 @@ $stmt = $bdd->prepare("SELECT id_trajet, nom_ville as ville_d, nom_ville as vill
 	<br/>
 	<fieldset>
 		<legend> Derniers co-voiturage proposés </legend>
-		<select>
+		<select size="10">
 		<?php
-			for ($i=0;$i < 10;$i++)
+			foreach($data as $d)
 			{
-			  echo '<option value="'.$data[$i]["id_trajet"].'">'.$data[$i]['ville_d'].' - '.$data[$i]['ville_a'].' '.$data[$i]['date'];
+				$libelle = $d->ville_d." -> ".$d->ville_a." ".$d->date_trajet;
+			  echo '<option value="'.$d->id_trajet.'">'.$libelle;
 			  echo '</option>';
 			}
 				
