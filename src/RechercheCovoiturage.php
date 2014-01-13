@@ -26,7 +26,7 @@ $dateDepart = P('date1');
 $heureDepart = P('villeD');
 
 if($erreurBool && isset(P('rechercheCovoiturage'))){
-	$query = $bdd->prepare("SELECT tr.*,d.nom_ville as villeDepart,a.nom_ville as villeArriver from TRAJET tr join VILLE a on a.id_ville = id_ville_a join VILLE d on d.id_ville = id_ville_d where id_ville_d=(select id_ville from VILLE where nom_ville=?) and id_ville_a=(select id_ville from VILLE where nom_ville=?) and date_trajet=?");
+	$query = $bdd->prepare("SELECT tr.*,d.nom_ville as villeDepart,a.nom_ville as villeArriver from TRAJET tr join VILLE a on a.id_ville = id_ville_a join VILLE d on d.id_ville = id_ville_d where id_ville_d=(select id_ville from VILLE where nom_ville like '%?%') and id_ville_a=(select id_ville from VILLE where nom_ville like '%?%') and date_trajet=?");
 	
 	$query->execute(array($villeDepart, $villeArriver, $dateDepart));
 	$resultat = $query->fetchAll();
