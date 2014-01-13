@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 // On définit le charset et le timezone
 header('Content-Type: text/html; charset=UTF-8');
 mb_internal_encoding('UTF-8');
@@ -8,6 +10,8 @@ ini_set('arg_separator.output', '&amp;');
 
 // On force la désactivation des magic quotes
 ini_set('magic_quotes_runtime', 0);
+
+require_once('fonctions.php');
 
 // Connexion à la base de données
 $db['user'] 	= "agile";
