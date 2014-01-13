@@ -1,4 +1,7 @@
-<!-- Formulaire d'inscription  -->
+<?php 
+require_once('includes/init.php');
+require_once('templates/header.php');
+?>
 
 <form name="inscription" action="" method="post">
 	<br>
@@ -24,3 +27,5 @@
 	</fieldset>
 </form>	
 	
+<?php
+require_once('templates/footer.php');

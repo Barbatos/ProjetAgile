@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html" charset="utf-8">
-		<title>Co-voiturage: Connexion</title>
+		<title>Co-voiturage</title>
 	</head>
 	<body>
 		<form name="formulaire" action="" method="post" enctype="multipart/form-data">
