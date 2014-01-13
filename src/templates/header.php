@@ -29,8 +29,13 @@
 						<li><a href="#proposer">Proposer covoiturage</a></li>         
           </ul>
           <ul class="nav navbar-nav navbar-right">
+            
+            <?php if(est_connecte()){ ?>
+            <li><a href="deconnexion.php">Déconnexion</a></li>
+            <?php } else { ?>
             <li><a href="inscription.php">Inscription</a></li>
             <li><a href="connexion.php">Connexion</a></li>
+            <?php } ?>
           </ul>
         </div>
       </div>

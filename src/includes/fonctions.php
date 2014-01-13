@@ -148,3 +148,19 @@ function message_redirect($message, $url = 'index.php', $type = 0){
 function error_exists(){
 	return (isset($_SESSION['errors']) && !empty($_SESSION['errors'])) ? true : false;
 }
+
+/**
+ * Vérifie si le visiteur est connecté
+ *
+ * @return 	true si l'utilisateur est connecté, sinon false
+ * @author 	Charles 'Barbatos' Duprey
+ * @access 	public
+ */
+function est_connecte(){
+	if(isset($_SESSION['id']) && !empty($_SESSION['id'])){
+		return true;
+	}
+	else {
+		return false;
+	}
+}
