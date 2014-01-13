@@ -7,15 +7,10 @@ require_once('templates/header.php');
 	<h1> Accueil Site Co-Voiturage </h1>
 	<br/>
 	<fieldset>
-		
-		<legend> Connexion</legend>
-		<label> Identifiant : </label> <br/>
-		<br/>
-		<label> Mot de passe : </label> <br/>
-		<br/>
-		
-		<a href="..." > <input type="button" value="Mot de passe oublié"> </a>
-		<a href="..." > <input type="button" value="Créer un compte"> </a>
+	
+		<a href="..." > <input type="button" value="Consulter les trajets disponibles"> </a>
+		<a href="..." > <input type="button" value="Ajouter un trajet"> </a>
+		<a href="..." > <input type="button" value="Gérer ses trajets"> </a>
 	</fieldset>
 	
 	<fieldset>
