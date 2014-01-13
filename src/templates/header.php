@@ -25,7 +25,7 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="index.php">Accueil</a></li>
-            <li><a href="rechercheCovoiturage.php">Chercher covoiturage</a></li>
+            <li><a href="RechercheCovoiturage.php">Chercher covoiturage</a></li>
 						<li><a href="#proposer">Proposer covoiturage</a></li>         
           </ul>
           <ul class="nav navbar-nav navbar-right">
