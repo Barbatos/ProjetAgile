@@ -104,7 +104,7 @@
 		$nbplace="";
 	}
 	
-	
+		$pageActive = "Proposer";
 		require_once('templates/header.php');
 ?>
 <html>
