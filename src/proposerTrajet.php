@@ -1,5 +1,11 @@
 <?php
-	require_once('includes/init.php');
+
+require_once('includes/init.php');
+
+if(!est_connecte()){
+	message_redirect("Vous devez être connecté pour voir cette page !", "index.php");
+}
+
 	
 	$villeD="";
 	$villeA="";
@@ -87,7 +93,7 @@
 			$mois=preg_replace('#/[0-9][0-9][0-9][0-9]#','',$mois);
 			$annee=preg_replace('#[0-9][0-9]/[0-9][0-9]/#','',$date);
 			$date_trajet=$annee.'-'.$mois.'-'.$jour.' '.$heure.':00';
-			$stmt = $bdd -> prepare ("INSERT INTO TRAJET(ID_VILLE_D, PRIX, DATE_TRAJET,ID_VILLE_A,ID_UTILISATEUR,LIEUX_D,NB_PLACE,LIEUX_A,NB_PLACE_OCCUPE) VALUES ('$villeD','$prix','$date_trajet','$villeA',1,'$lieuxD','$nbplace','$lieuxA','$nbplace')");
+			$stmt = $bdd -> prepare ("INSERT INTO TRAJET(ID_VILLE_D, PRIX, DATE_TRAJET,ID_VILLE_A,ID_UTILISATEUR,LIEUX_D,NB_PLACE,LIEUX_A,NB_PLACE_OCCUPE) VALUES ('$villeD','$prix','$date_trajet','$villeA', '".$_SESSION['id']."','$lieuxD','$nbplace','$lieuxA','$nbplace')");
 			$stmt->execute();
 			header('location:index.php'); 
 		}
