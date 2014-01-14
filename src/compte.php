@@ -52,11 +52,13 @@ if(P()){
 		}
 	}
 
-	if(P('modifierCoordBancaires')){
+	if(P('numcarte') || P('datecarte')){
 		if(P('numcarte') && P('datecarte')){
+			$mysqlDate = date('Y-m-d', strtotime(P('datecarte')));
+			echo "mysqldate:".$mysqlDate;
 			$stmt = $bdd->prepare('UPDATE COMPTE SET NUMERO_CB = :numcb, DATE_VALIDITE = :dateval WHERE ID_UTILISATEUR = :id');
 			$stmt->bindValue(':numcb', P('numcarte'));
-			$stmt->bindValue(':dateval', P('datecarte'));
+			$stmt->bindValue(':dateval', $mysqlDate);
 			$stmt->bindValue(':id', $_SESSION['id']);
 			$stmt->execute();
 			$stmt->closeCursor();

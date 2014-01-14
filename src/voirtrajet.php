@@ -20,7 +20,7 @@ if(P()){
 			message_redirect("Vous avez déjà demandé une place pour ce trajet !", "voirtrajet.php?id=".G('id'), 1);
 		}
 		else {
-			$stmt = $bdd->prepare("
+			/*$stmt = $bdd->prepare("
 				SELECT count(*)  
 				FROM `COMPTE` 
 				WHERE id_utilisateur=:utilisateur 
@@ -34,7 +34,9 @@ if(P()){
 			if($data['count(*)']==0){
 				message_redirect("Il faut enregistrer une carte pour s'inscrire au covoiturage !", "compte.php");
 			}
-
+			
+			*/
+			
 			$stmt = $bdd->prepare("INSERT INTO PASSAGER (ID_TRAJET, ID_UTILISATEUR) VALUES (:trajet, :user)");
 			$stmt->bindValue(':trajet', G('id'));
 			$stmt->bindValue(':user', $_SESSION['id']);
