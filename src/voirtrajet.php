@@ -55,9 +55,11 @@ if(P()){
 		$stmt->bindValue(':trajet', G('id'));
 		$stmt->execute();
 		
-		$code = genererCode()
+		$code = genererCode();
 		mailTo_info(P('utilisateur'), $code);
-		$stmt = $bdd->prepare('UPDATE PASSAGER SET CODE = "'.$code'" WHERE ID_UTILISATEUR = :user AND ID_TRAJET = :trajet');
+		$stmt = $bdd->prepare('UPDATE PASSAGER SET CODE = "'.$code.'" WHERE ID_UTILISATEUR = :user AND ID_TRAJET = :trajet');
+		$stmt->bindValue(':user', P('utilisateur'));
+		$stmt->bindValue(':trajet', G('id'));
 		$stmt->execute();
 		
 		$stmt->closeCursor();
