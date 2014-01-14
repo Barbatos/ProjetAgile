@@ -26,16 +26,17 @@ if(P('rechercheCovoiturage')){
 $villeDepart = P('villeD');
 $villeArriver = P('villeA');
 $dateDepart = P('date1');
-$heureDepart = P('villeD');
+$heureDepart = P('heureD');
 
 if($erreurBool && P('rechercheCovoiturage')){
 	$jour=preg_replace('#/[0-9][0-9]/[0-9][0-9][0-9][0-9]#','',$dateDepart);
 	$mois=preg_replace('#^[0-9][0-9]/#','',$dateDepart);
-	$mois=preg_replace('#/[0-9][0-9][0-9][0-9]#','',$dateDepart);
+	$mois=preg_replace('#/[0-9][0-9][0-9][0-9]#','',$mois);
 	$annee=preg_replace('#[0-9][0-9]/[0-9][0-9]/#','',$dateDepart);
-	$date_trajet=$annee.'-'.$mois.'-'.$jour.' '.$heure.':00';
+	$date_trajet=$annee.'-'.$mois.'-'.$jour.' '.$heureDepart.':00';
+	
 
-	$query = $bdd->prepare("SELECT tr.*,d.nom_ville as villeDepart,a.nom_ville as villeArriver from TRAJET tr join VILLE a on a.id_ville = id_ville_a join VILLE d on d.id_ville = id_ville_d where id_ville_d in (select id_ville from VILLE where nom_ville = ?) and id_ville_a in (select id_ville from VILLE where nom_ville = ?) and date_trajet=?");
+	$query = $bdd->prepare("SELECT tr.*,d.nom_ville as villeDepart,a.nom_ville as villeArriver from TRAJET tr join VILLE a on a.id_ville = id_ville_a join VILLE d on d.id_ville = id_ville_d where id_ville_d in (select id_ville from VILLE where nom_ville = ?) and id_ville_a in (select id_ville from VILLE where nom_ville = ?) and date_trajet >= ?");
 	
 	$query->execute(array($villeDepart, $villeArriver, $date_trajet));
 	$resultat = $query->fetchAll();
@@ -49,12 +50,14 @@ if(!P('rechercheCovoiturage') || !$erreurBool){
 	$queryVille->execute();
 	$ville = $queryVille->fetchAll();
 	$queryVille->closeCursor();
+	
 	?>
 	
 
 	<div id="titre"><h1>Recherche de covoiturage</h1></div>
 	
-	<?php if(!$erreurBool){ ?>
+	<?php 
+	if(!$erreurBool){ ?>
 	<div> <?php echo $erreur; ?></div>
 	<?php } ?>
 	
@@ -98,6 +101,7 @@ if(!P('rechercheCovoiturage') || !$erreurBool){
 	<?php 
 }
 else if(P('rechercheCovoiturage')){
+
 	require_once('afficheTrajetRechercher.php');
 }
 
