@@ -87,7 +87,7 @@ if(P()){
 }
 
 $stmt = $bdd->prepare("
-	SELECT t.*, u.*, v1.NOM_VILLE AS NOM_VILLE_D, v2.NOM_VILLE AS NOM_VILLE_A, p.ID_TRAJET AS ID_TRAJET_RESERV, t.ID_UTILISATEUR AS USERID 
+	SELECT t.*, u.*, v1.NOM_VILLE AS NOM_VILLE_D, v2.NOM_VILLE AS NOM_VILLE_A, p.ID_TRAJET AS ID_TRAJET_RESERV, p.DEMANDE_VALIDEE, t.ID_UTILISATEUR AS USERID 
 	FROM TRAJET t
 	LEFT JOIN VILLE v1 ON v1.ID_VILLE = t.ID_VILLE_D
 	LEFT JOIN VILLE v2 ON v2.ID_VILLE = t.ID_VILLE_A
@@ -230,9 +230,21 @@ Age : <?php echo (date('Y') - $dataTrajet->DATENAISS_ANNEE) ?><br />
 <?php 
 if(est_connecte() && ($_SESSION['id'] != $dataTrajet->USERID)){
 	if(!empty($dataTrajet->ID_TRAJET_RESERV)){
+		if($dataTrajet->DEMANDE_VALIDEE == 1){
+		?>
+		<input type="button" class="btn btn-large btn-success" value="Demande de réservation validée !!">
+		<?php 
+		}
+		else if($dataTrajet->DEMANDE_VALIDEE == 2){
+		?>
+		<input type="button" class="btn btn-large btn-danger" value="Demande de réservation refusée par le conducteur.">
+		<?php 
+		}
+		else {
 	?>
 		<input type="button" class="btn btn-large btn-warning" value="Demande de réservation confirmée. Attente de la validation du conducteur...">
 	<?php 
+		}
 	} else { 
 		$nbPlacesDispo = compterPlacesDispo($dataTrajet->ID_TRAJET);
 		if($nbPlacesDispo <= 0){
