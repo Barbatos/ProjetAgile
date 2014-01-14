@@ -38,10 +38,10 @@ require_once('templates/header.php');
 	<fieldset>
 		<legend>Connexion</legend>
 		<label for="identifiant"> Identifiant : </label> <br/>
-		<input id="identifiant" type="text" name="identifiant" placeholder="Votre nom d'utilisateur"><br/>
+		<input id="identifiant" type="text" class="form-control" name="identifiant" placeholder="Votre nom d'utilisateur"><br/>
 		<br/>
 		<label for="mdp"> Mot de passe : </label> <br/>
-		<input id="mdp" type="password" name="mdp" placeholder="Votre mot de passe"><br/>
+		<input id="mdp" type="password" class="form-control" name="mdp" placeholder="Votre mot de passe"><br/>
 		<br/>
 	</fieldset>
 	<div id="boutonEnvoyer">

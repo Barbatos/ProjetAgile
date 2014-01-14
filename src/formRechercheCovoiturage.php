@@ -18,16 +18,16 @@ require_once('templates/header.php');
 	<fieldset>
 	<legend></legend>
 	<label for="villeD">Ville de depart: </label><br/>
-	<input type="text" name="villeD" id="villeD"/><br/><br/>
+	<input type="text" class="form-control input-normal" name="villeD" id="villeD"/><br/><br/>
 
 	<label for="villeA">Ville d'arrive: </label><br/>
-	<input type="text" name="villeA" id="villeA"/><br/><br/>
+	<input type="text" class="form-control input-normal" name="villeA" id="villeA"/><br/><br/>
 
 	<label for="date1">Date de depart: </label><br/>
-	<input type="text" name="date1" id="date1" onclick="ds_sh(this);"/><br/><br/>
+	<input type="text" class="form-control input-normal" name="date1" id="date1" onclick="ds_sh(this);"/><br/><br/>
 	
 	<label for="heureD">Heure de depart: </label><br/>
-	<input type="text" class="hourPicker" id="heureD" name="heureD" /><br/><br/>
+	<input type="text" class="form-control input-normal" class="hourPicker" id="heureD" name="heureD" /><br/><br/>
 	
 	<div id = "boutonEnvoyer">
 	<input type="submit" name="rechercheCovoiturage" class="btn btn-success" value="Rechercher"/>

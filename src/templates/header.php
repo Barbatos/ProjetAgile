@@ -30,6 +30,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <?php if(est_connecte()){ ?>
+            <li <?php if($pageActive == "Compte") echo 'class="active"' ?>><a href="compte.php">Mon compte</a></li>
             <li><a href="deconnexion.php">Déconnexion</a></li>
             <?php } else { ?>
             <li <?php if($pageActive == "Inscription") echo 'class="active"' ?>><a href="inscription.php">Inscription</a></li>
