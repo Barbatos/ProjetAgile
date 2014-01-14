@@ -1,6 +1,8 @@
 <?php 
 require_once('includes/init.php');
 
+$pageActive = "";
+
 if(!G('id')){
 	message_redirect("L'adresse URL est incorrecte !", "index.php");
 }
