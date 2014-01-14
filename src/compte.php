@@ -83,8 +83,16 @@ $data = $stmt->fetch(PDO::FETCH_OBJ);
 $stmt->closeCursor();
 
 ?>
-
+<script type="text/javascript" src="js/calendrier.js"></script>
+<link rel="stylesheet" media="screen" type="text/css" title="Design" href="css/design.css" />
 <div id="titre"><h1>Mon compte</h1></div>
+
+		<!-- Tableau obligatoire ! C'est lui qui contiendra le calendrier ! -->
+		<table class="ds_box" cellpadding="0" cellspacing="0" id="ds_conclass" style="display: none;">
+			<tr>
+				<td id="ds_calclass"></td>
+			</tr>
+		</table>
 
 	<form name="modifierInfosPerso" action="" method="post">
       <br>
@@ -136,7 +144,7 @@ $stmt->closeCursor();
 	  </div><br/>
 	  <label>Date validité</label>
 	  <div class="controls">
-	  	<input type="text" class="form-control" name="datecarte" size="30" maxlength="256" value="<?php echo $data->DATE_VALIDITE ?>">
+	  	<input type="text" class="form-control" name="datecarte" size="30" maxlength="256" value="<?php echo $data->DATE_VALIDITE ?>" onclick="ds_sh(this);">
 	  </div>
 	  <br/><br/><br/>
 	 
