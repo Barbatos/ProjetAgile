@@ -93,8 +93,39 @@ if(!est_connecte()){
 			$mois=preg_replace('#/[0-9][0-9][0-9][0-9]#','',$mois);
 			$annee=preg_replace('#[0-9][0-9]/[0-9][0-9]/#','',$date);
 			$date_trajet=$annee.'-'.$mois.'-'.$jour.' '.$heure.':00';
-			$stmt = $bdd -> prepare ("INSERT INTO TRAJET(ID_VILLE_D, PRIX, DATE_TRAJET,ID_VILLE_A,ID_UTILISATEUR,LIEUX_D,NB_PLACE,LIEUX_A,NB_PLACE_OCCUPE) VALUES ('$villeD','$prix','$date_trajet','$villeA', '".$_SESSION['id']."','$lieuxD','$nbplace','$lieuxA','$nbplace')");
+			$stmt = $bdd -> prepare ("INSERT INTO TRAJET(ID_VILLE_D, PRIX, DATE_TRAJET,ID_VILLE_A,ID_UTILISATEUR,LIEUX_D,NB_PLACE,LIEUX_A,NB_PLACE_OCCUPE) VALUES ('$villeD','$prix','$date_trajet','$villeA','".$_SESSION['id']."','$lieuxD','$nbplace','$lieuxA','$nbplace')");
 			$stmt->execute();
+			$stmt->closeCursor();
+			$date=$annee.'-'.$mois.'-'.$jour;
+			$stmt = $bdd->prepare("SELECT ID_UTILISATEUR FROM DEMANDE 
+									WHERE ID_VILLE_A='$villeA' && ID_VILLE_D='$villeD' and DATE_TRAJET='$date'");
+			$stmt->execute();
+			$data = $stmt->fetchAll(PDO::FETCH_OBJ);
+			foreach($data as $d){
+				$id_destinataire =$d->ID_UTILISATEUR;
+				echo $id_destinataire;
+				$txt = "Il y a un trajet disponible le ";
+				$txt.=$date;
+				$txt.=" de ";
+				$txt.=$villeD;
+				$txt.=" vers ";
+				$txt.=$villeA;
+				$stmt = $bdd->prepare('SELECT mail FROM UTILISATEUR WHERE ID_UTILISATEUR = "'.$id_destinataire.'" ;');
+				$stmt->execute();
+				$destinataire = $stmt->fetch(PDO::FETCH_OBJ);
+				$stmt->closeCursor();
+				$sujet = 'Info Co-Voiturage';
+				$headers = "From: Co-Voiturage ";
+				$headers .= "Content-Type: text/plain; charset=\"iso-8859-1\"";
+				if(mail($destinataire->mail,$sujet,$txt,$headers))
+				{
+						echo "L'email a bien été envoyé.";
+				}
+				else
+				{
+						echo "Une erreur c'est produite lors de l'envoi de l'email.";
+				}			
+			}
 			header('location:index.php'); 
 		}
 	}
@@ -172,7 +203,7 @@ if(!est_connecte()){
 			<tr><td>Nombre de places</td> <td><input type="text" class="form-control" name="nbplace" value="<?php echo $nbplace ?>" placeholder="nb de place dispo"/><br>
 			<tr><td>Prix</td> <td><input type="text" name="prix" class="form-control" value="<?php echo $prix ?>" placeholder="Valeur Du trajet"/><br>
 			<tr><td>Date de départ</td> <td><input type="text" class="form-control" name="date" name="date1" placeholder="Jour de Trajet"onclick="ds_sh(this);" /><br>
-			<tr><td>Heure</td> <td><input type="text" name="heure" placeholder="Heure Départ" class="hourPicker" value="00:00" /><br>
+			<tr><td>Heure</td> <td><input type="text" name="heure" placeholder="Heure Départ" class="hourPicker" /><br>
 			</table><br><br>
 			</fieldset>
 			<fieldset>
