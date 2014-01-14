@@ -5,7 +5,7 @@ if(!est_connecte()){
 }
 
 if(P()){
-	if(P('modifierInfosPerso')){
+	if(P('nom') || P('prenom')){
 		if(P('nom') && P('prenom') && P('email') && P('tel')){
 			$stmt = $bdd->prepare('UPDATE UTILISATEUR SET NOM = :nom, PRENOM = :prenom, MAIL = :email, TEL = :tel');
 			$stmt->bindValue(':nom', P('nom'));
@@ -22,7 +22,7 @@ if(P()){
 		}
 	}
 
-	if(P('modifierMdp')){
+	if(P('ancienmdp') || P('nouveaumdp')){
 		if(P('ancienmdp') && P('nouveaumdp') && P('nouveaumdp2')){
 			if(P('nouveaumdp') != P('nouveaumdp2')){
 				message_redirect('Les deux mots de passe ne correspondent pas !', 'compte.php');
@@ -31,10 +31,36 @@ if(P()){
 			$stmt = $bdd->prepare('SELECT MDP FROM UTILISATEUR WHERE ID_UTILISATEUR = :id');
 			$stmt->bindValue(':id', $_SESSION['id']);
 			$stmt->execute();
-			$date = $stmt->fetch(PDO::FETCH_OBJ);
+			$data = $stmt->fetch(PDO::FETCH_OBJ);
 			$stmt->closeCursor();
 
-			
+			if($data->MDP != P('ancienmdp')){
+				message_redirect("L'ancien mot de passe ne correspond pas.", 'compte.php');
+			}
+
+			$stmt = $bdd->prepare('UPDATE UTILISATEUR SET MDP = :mdp WHERE ID_UTILISATEUR = :id');
+			$stmt->bindValue(':mdp', P('nouveaumdp'));
+			$stmt->bindValue(':id', $_SESSION['id']);
+			$stmt->execute();
+			$stmt->closeCursor();
+
+			message_redirect('Le mot de passe a bien été changé !', 'compte.php');
+		}
+		else {
+			message_redirect('Vous devez renseigner tous les champs !', 'compte.php');
+		}
+	}
+
+	if(P('modifierCoordBancaires')){
+		if(P('numcarte') && P('datecarte')){
+			$stmt = $bdd->prepare('UPDATE COMPTE SET NUMERO_CB = :numcb, DATE_VALIDITE = :dateval WHERE ID_UTILISATEUR = :id');
+			$stmt->bindValue(':numcb', P('numcarte'));
+			$stmt->bindValue(':dateval', P('datecarte'));
+			$stmt->bindValue(':id', $_SESSION['id']);
+			$stmt->execute();
+			$stmt->closeCursor();
+
+			message_redirect('Vos coordonnées bancaires ont bien été changées !', 'compte.php');
 		}
 		else {
 			message_redirect('Vous devez renseigner tous les champs !', 'compte.php');
@@ -47,7 +73,7 @@ $pageActive = "Compte";
 require_once('templates/header.php');
 
 $stmt = $bdd->prepare("
-	SELECT u.ID_UTILISATEUR, LOGIN, MDP, ID_TYPE, MAIL, TEL, NOM, PRENOM, DATENAISS_JOUR, DATENAISS_MOIS, DATENAISS_ANNEE 
+	SELECT u.ID_UTILISATEUR, LOGIN, MDP, ID_TYPE, MAIL, TEL, NOM, PRENOM, DATENAISS_JOUR, DATENAISS_MOIS, DATENAISS_ANNEE, NUMERO_CB, DATE_VALIDITE 
 	FROM UTILISATEUR u
 	LEFT JOIN COMPTE c ON c.ID_UTILISATEUR = u.ID_UTILISATEUR 
 	WHERE u.ID_UTILISATEUR = :utilisateur");
@@ -104,11 +130,11 @@ $stmt->closeCursor();
 
 	<form name="modifierCoordBancaires" action="" method="post">
 	  <legend><b>Modifier vos coordonnees bancaire :</b></legend>
-	  <label>Numero carte bancaire</label>
+	  <label>Numéro carte bancaire</label>
 	  <div class="controls">
 	  	<input type="text" name="numcarte" size="30" maxlength="256" value="<?php echo $data->NUMERO_CB ?>">
 	  </div><br/>
-	  <label>Date validite</label>
+	  <label>Date validité</label>
 	  <div class="controls">
 	  	<input type="text" name="datecarte" size="30" maxlength="256" value="<?php echo $data->DATE_VALIDITE ?>">
 	  </div>
