@@ -92,7 +92,7 @@ if(!P('rechercheCovoiturage') || !$erreurBool){
 		<input type="text" name="date1" id="date1" onclick="ds_sh(this);" /><br/><br/>
 		
 		<label for="heureD">Heure de départ: </label><br/>
-		<input type="text" class="hourPicker" id="heureD" name="heureD" /><br/><br/>
+		<input type="text" class="hourPicker" id="heureD" name="heureD" value="00:00" /><br/><br/>
 
 		<input type="submit" name="rechercheCovoiturage" class="btn btn-success" value="Recherche"/><br/>
 		</fieldset>

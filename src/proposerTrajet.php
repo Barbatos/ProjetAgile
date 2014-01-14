@@ -172,7 +172,7 @@ if(!est_connecte()){
 			<tr><td>Nombre de places</td> <td><input type="text" class="form-control" name="nbplace" value="<?php echo $nbplace ?>" placeholder="nb de place dispo"/><br>
 			<tr><td>Prix</td> <td><input type="text" name="prix" class="form-control" value="<?php echo $prix ?>" placeholder="Valeur Du trajet"/><br>
 			<tr><td>Date de départ</td> <td><input type="text" class="form-control" name="date" name="date1" placeholder="Jour de Trajet"onclick="ds_sh(this);" /><br>
-			<tr><td>Heure</td> <td><input type="text" name="heure" placeholder="Heure Départ" class="hourPicker" /><br>
+			<tr><td>Heure</td> <td><input type="text" name="heure" placeholder="Heure Départ" class="hourPicker" value="00:00" /><br>
 			</table><br><br>
 			</fieldset>
 			<fieldset>
