@@ -2,6 +2,8 @@
 
 session_start();
 
+error_reporting(0);
+
 // On définit le charset et le timezone
 header('Content-Type: text/html; charset=UTF-8');
 mb_internal_encoding('UTF-8');
