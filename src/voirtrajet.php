@@ -123,6 +123,55 @@ if($_SESSION['id'] == $dataTrajet->USERID){
 	</div>
 	<?php	
 	}
+
+	$stmt = $bdd->prepare('
+		SELECT * FROM PASSAGER p
+		LEFT JOIN UTILISATEUR u ON u.ID_UTILISATEUR = p.ID_UTILISATEUR
+		WHERE ID_TRAJET = :trajet AND DEMANDE_VALIDEE != :valide');
+	$stmt->bindValue(':trajet', G('id'));
+	$stmt->bindValue(':valide', 0);
+	$stmt->execute();
+	$data = $stmt->fetchAll(PDO::FETCH_OBJ);
+	$stmt->closeCursor();
+
+	if($data){
+	?>
+		<h4>Liste des demandes traitées :</h4>
+	<div class="alert">
+		<table class="table">
+			<thead>
+				<th>Prénom Nom</th>
+				<th>Age</th>
+				<th>Places demandées</th>
+				<th>Validation</th>
+			</thead>
+			<tbody>
+			<?php 
+			foreach($data as $d){
+			?>
+			
+			<tr>
+				<td><?= $d->PRENOM . " " . $d->NOM ?></td>
+				<td><?= (date('Y') - $d->DATENAISS_ANNEE) ?></td>
+				<td>1</td>
+				<td>
+					<?php if($d->DEMANDE_VALIDEE == 1){ ?>
+					<button name="acceptee" class="btn btn-success">Demande acceptée</button>
+					<?php } elseif($d->DEMANDE_VALIDEE == 2){ ?>
+					<button name="refusee" class="btn btn-danger">Demande refusée&nbsp;&nbsp;&nbsp;</button>
+					<?php } ?>
+				</td>
+			</tr>
+				
+			<?php 
+			}
+			?>
+			</tbody>
+		</table>	
+	</div>
+	<?php	
+	}
+
 }
 ?>
 
