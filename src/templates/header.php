@@ -25,7 +25,7 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li <?php if($pageActive == "Accueil") echo 'class="active"' ?>><a href="index.php">Accueil</a></li>
-            <li <?php if($pageActive == "Chercher") echo 'class="active"' ?>><a href="RechercheCovoiturage.php">Chercher covoiturage</a></li>
+            <li <?php if($pageActive == "Chercher") echo 'class="active"' ?>><a href="rechercheCovoiturage.php">Chercher covoiturage</a></li>
 	          <li <?php if($pageActive == "Proposer") echo 'class="active"' ?>><a href="proposerTrajet.php">Proposer covoiturage</a></li>         
           </ul>
           <ul class="nav navbar-nav navbar-right">
