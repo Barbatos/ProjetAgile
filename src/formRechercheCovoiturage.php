@@ -1,6 +1,6 @@
 <?php 
 
-$pageActive = "Recherche";
+$pageActive = "Chercher";
 
 require_once('templates/header.php');
 ?>
@@ -28,8 +28,10 @@ require_once('templates/header.php');
 	
 	<label for="heureD">Heure de depart: </label><br/>
 	<input type="text" class="hourPicker" id="heureD" name="heureD" /><br/><br/>
-
-	<input type="submit" name="rechercheCovoiturage" value="Recherche"/><br/>
+	
+	<div id = "boutonEnvoyer">
+	<input type="submit" name="rechercheCovoiturage" class="btn btn-success" value="Rechercher"/>
+	</div>
 	</fieldset>
 </form>
 

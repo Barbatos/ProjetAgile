@@ -87,7 +87,7 @@ require_once('templates/header.php');
   	</select></td></tr><br/>
 	</table>
 	</div>
-	<div id = "boutonfin">
+	<div id = "boutonEnvoyer">
   	<input type="submit" class="btn btn-success btn-large" value="Valider"/>
 	</div>
   	</fieldset>
