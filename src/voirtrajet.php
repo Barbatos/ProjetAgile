@@ -75,19 +75,19 @@ Age : <?= (date('Y') - $data->DATENAISS_ANNEE) ?><br />
 if(est_connecte() && ($_SESSION['id'] != $data->USERID)){
 	if(!empty($data->ID_TRAJET_RESERV)){
 	?>
-		<input type="button" class="btn large" value="Demande de réservation confirmée. Attente de la validation du conducteur...">
+		<input type="button" class="btn btn-large btn-warning" value="Demande de réservation confirmée. Attente de la validation du conducteur...">
 	<?php 
 	} else { 
 	?>
 	<form name="demanderPlace" method="post" action="">
-		<input type="submit" class="btn large" name="demanderPlace" value="Demander une place">
+		<input type="submit" class="btn btn-large btn-warning" name="demanderPlace" value="Demander une place">
 	</form>
 	<?php
 	}
 }
 else if(!est_connecte()){
 ?>
-	<p><a href="connexion.php" title="Se connecter">Se connecter pour réserver une place</a></p>
+	<p><a href="connexion.php" class="btn btn-success btn-medium" title="Se connecter">Se connecter pour réserver une place</a></p>
 <?php 
 }
 ?>
