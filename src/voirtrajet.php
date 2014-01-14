@@ -30,6 +30,28 @@ if(P()){
 			$stmt->closeCursor();
 		}
 	}
+
+	if(P('accepter') && P('utilisateur')){
+		$stmt = $bdd->prepare('UPDATE PASSAGER SET DEMANDE_VALIDEE = :validation WHERE ID_UTILISATEUR = :user AND ID_TRAJET = :trajet');
+		$stmt->bindValue(':validation', 1);
+		$stmt->bindValue(':user', P('utilisateur'));
+		$stmt->bindValue(':trajet', G('id'));
+		$stmt->execute();
+		$stmt->closeCursor();
+
+		message_redirect('La demande de ce passager a bien été validée !', 'voirtrajet.php?id='.G('id'));
+	}
+
+	if(P('refuser') && P('utilisateur')){
+		$stmt = $bdd->prepare('UPDATE PASSAGER SET DEMANDE_VALIDEE = :validation WHERE ID_UTILISATEUR = :user AND ID_TRAJET = :trajet');
+		$stmt->bindValue(':validation', 2);
+		$stmt->bindValue(':user', P('utilisateur'));
+		$stmt->bindValue(':trajet', G('id'));
+		$stmt->execute();
+		$stmt->closeCursor();
+
+		message_redirect('La demande de ce passager a bien été refusée !', 'voirtrajet.php?id='.G('id'));
+	}
 }
 
 $stmt = $bdd->prepare("
@@ -44,36 +66,88 @@ $stmt = $bdd->prepare("
 $stmt->bindValue(':id', G('id'));
 $stmt->bindValue(':utilisateur', $_SESSION['id']);
 $stmt->execute();
-$data = $stmt->fetch(PDO::FETCH_OBJ);
+$dataTrajet = $stmt->fetch(PDO::FETCH_OBJ);
 $stmt->closeCursor();
 
 require_once('templates/header.php');
 ?>
 
-<div id="titre"><strong>Informations sur le trajet <?= $data->NOM_VILLE_D ?> -> <?= $data->NOM_VILLE_A ?></strong></div><br />
+<div id="titre"><strong>Informations sur le trajet <?= $dataTrajet->NOM_VILLE_D ?> -> <?= $dataTrajet->NOM_VILLE_A ?></strong></div><br />
 
-Trajet ajouté <?= dateformat(strtotime($data->DATE_AJOUT), 0) ?><br /><br />
+<?php 
+if($_SESSION['id'] == $dataTrajet->USERID){
+	$stmt = $bdd->prepare('
+		SELECT * FROM PASSAGER p
+		LEFT JOIN UTILISATEUR u ON u.ID_UTILISATEUR = p.ID_UTILISATEUR
+		WHERE ID_TRAJET = :trajet AND DEMANDE_VALIDEE = :valide');
+	$stmt->bindValue(':trajet', G('id'));
+	$stmt->bindValue(':valide', 0);
+	$stmt->execute();
+	$data = $stmt->fetchAll(PDO::FETCH_OBJ);
+	$stmt->closeCursor();
 
-Ville de départ : <?= $data->NOM_VILLE_D ?><br />
-Lieu de départ : <?= $data->LIEUX_D ?><br /><br />
+	if($data){
+	?>
+		<h4>Vous avez des demandes en attente de confirmation !</h4>
+	<div class="alert">
+		<table class="table">
+			<thead>
+				<th>Prénom Nom</th>
+				<th>Age</th>
+				<th>Places demandées</th>
+				<th>Validation</th>
+			</thead>
+			<tbody>
+			<?php 
+			foreach($data as $d){
+			?>
+			
+			<tr>
+				<td><?= $d->PRENOM . " " . $d->NOM ?></td>
+				<td><?= (date('Y') - $d->DATENAISS_ANNEE) ?></td>
+				<td>1</td>
+				<td>
+					<form name="validationConducteur" method="post">
+						<input type="hidden" name="utilisateur" value="<?= $d->ID_UTILISATEUR ?>" />
+						<input type="submit" name="refuser" value="Refuser" class="btn btn-danger" />
+						<input type="submit" name="accepter" value="Accepter" class="btn btn-success" />
+					</form>
+				</td>
+			</tr>
+				
+			<?php 
+			}
+			?>
+			</tbody>
+		</table>	
+	</div>
+	<?php	
+	}
+}
+?>
 
-Ville d'arrivée : <?= $data->NOM_VILLE_A ?><br />
-Lieu d'arrivée : <?= $data->LIEUX_A ?><br /><br />
+Trajet ajouté <?= dateformat(strtotime($dataTrajet->DATE_AJOUT), 0) ?><br /><br />
 
-Date de départ : <?= dateformat(strtotime($data->DATE_TRAJET), 0) ?><br />
-Heure de départ : <?= date('H\hi', strtotime($data->DATE_TRAJET)) ?><br /><br />
+Ville de départ : <?= $dataTrajet->NOM_VILLE_D ?><br />
+Lieu de départ : <?= $dataTrajet->LIEUX_D ?><br /><br />
 
-Prix : <?= $data->PRIX ?>€<br />
-Nombre de places : <?= $data->NB_PLACE ?><br /><br /><br />
+Ville d'arrivée : <?= $dataTrajet->NOM_VILLE_A ?><br />
+Lieu d'arrivée : <?= $dataTrajet->LIEUX_A ?><br /><br />
 
-Conducteur: <?= $data->PRENOM ?> <?= $data->NOM ?><br />
-Age : <?= (date('Y') - $data->DATENAISS_ANNEE) ?><br />
+Date de départ : <?= dateformat(strtotime($dataTrajet->DATE_TRAJET), 0) ?><br />
+Heure de départ : <?= date('H\hi', strtotime($dataTrajet->DATE_TRAJET)) ?><br /><br />
+
+Prix : <?= $dataTrajet->PRIX ?>€<br />
+Nombre de places : <?= $dataTrajet->NB_PLACE ?><br /><br /><br />
+
+Conducteur: <?= $dataTrajet->PRENOM ?> <?= $dataTrajet->NOM ?><br />
+Age : <?= (date('Y') - $dataTrajet->DATENAISS_ANNEE) ?><br />
 
 <br />	
 
 <?php 
-if(est_connecte() && ($_SESSION['id'] != $data->USERID)){
-	if(!empty($data->ID_TRAJET_RESERV)){
+if(est_connecte() && ($_SESSION['id'] != $dataTrajet->USERID)){
+	if(!empty($dataTrajet->ID_TRAJET_RESERV)){
 	?>
 		<input type="button" class="btn btn-large btn-warning" value="Demande de réservation confirmée. Attente de la validation du conducteur...">
 	<?php 
