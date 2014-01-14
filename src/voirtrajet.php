@@ -72,7 +72,7 @@ $stmt->closeCursor();
 require_once('templates/header.php');
 ?>
 
-<div id="titre"><strong>Informations sur le trajet <?= $dataTrajet->NOM_VILLE_D ?> -> <?= $dataTrajet->NOM_VILLE_A ?></strong></div><br />
+<div id="titre"><strong>Informations sur le trajet <?php echo $dataTrajet->NOM_VILLE_D ?> -> <?php echo $dataTrajet->NOM_VILLE_A ?></strong></div><br />
 
 <?php 
 if($_SESSION['id'] == $dataTrajet->USERID){
@@ -103,12 +103,12 @@ if($_SESSION['id'] == $dataTrajet->USERID){
 			?>
 			
 			<tr>
-				<td><?= $d->PRENOM . " " . $d->NOM ?></td>
-				<td><?= (date('Y') - $d->DATENAISS_ANNEE) ?></td>
+				<td><?php echo $d->PRENOM . " " . $d->NOM ?></td>
+				<td><?php echo (date('Y') - $d->DATENAISS_ANNEE) ?></td>
 				<td>1</td>
 				<td>
 					<form name="validationConducteur" method="post">
-						<input type="hidden" name="utilisateur" value="<?= $d->ID_UTILISATEUR ?>" />
+						<input type="hidden" name="utilisateur" value="<?php echo $d->ID_UTILISATEUR ?>" />
 						<input type="submit" name="refuser" value="Refuser" class="btn btn-danger" />
 						<input type="submit" name="accepter" value="Accepter" class="btn btn-success" />
 					</form>
@@ -151,8 +151,8 @@ if($_SESSION['id'] == $dataTrajet->USERID){
 			?>
 			
 			<tr>
-				<td><?= $d->PRENOM . " " . $d->NOM ?></td>
-				<td><?= (date('Y') - $d->DATENAISS_ANNEE) ?></td>
+				<td><?php echo $d->PRENOM . " " . $d->NOM ?></td>
+				<td><?php echo (date('Y') - $d->DATENAISS_ANNEE) ?></td>
 				<td>1</td>
 				<td>
 					<?php if($d->DEMANDE_VALIDEE == 1){ ?>
@@ -175,22 +175,22 @@ if($_SESSION['id'] == $dataTrajet->USERID){
 }
 ?>
 
-Trajet ajouté <?= dateformat(strtotime($dataTrajet->DATE_AJOUT), 0) ?><br /><br />
+Trajet ajouté <?php echo dateformat(strtotime($dataTrajet->DATE_AJOUT), 0) ?><br /><br />
 
-Ville de départ : <?= $dataTrajet->NOM_VILLE_D ?><br />
-Lieu de départ : <?= $dataTrajet->LIEUX_D ?><br /><br />
+Ville de départ : <?php echo $dataTrajet->NOM_VILLE_D ?><br />
+Lieu de départ : <?php echo $dataTrajet->LIEUX_D ?><br /><br />
 
-Ville d'arrivée : <?= $dataTrajet->NOM_VILLE_A ?><br />
-Lieu d'arrivée : <?= $dataTrajet->LIEUX_A ?><br /><br />
+Ville d'arrivée : <?php echo $dataTrajet->NOM_VILLE_A ?><br />
+Lieu d'arrivée : <?php echo $dataTrajet->LIEUX_A ?><br /><br />
 
-Date de départ : <?= dateformat(strtotime($dataTrajet->DATE_TRAJET), 0) ?><br />
-Heure de départ : <?= date('H\hi', strtotime($dataTrajet->DATE_TRAJET)) ?><br /><br />
+Date de départ : <?php echo dateformat(strtotime($dataTrajet->DATE_TRAJET), 0) ?><br />
+Heure de départ : <?php echo date('H\hi', strtotime($dataTrajet->DATE_TRAJET)) ?><br /><br />
 
-Prix : <?= $dataTrajet->PRIX ?>€<br />
-Nombre de places : <?= $dataTrajet->NB_PLACE ?><br /><br /><br />
+Prix : <?php echo $dataTrajet->PRIX ?>€<br />
+Nombre de places : <?php echo $dataTrajet->NB_PLACE ?><br /><br /><br />
 
-Conducteur: <?= $dataTrajet->PRENOM ?> <?= $dataTrajet->NOM ?><br />
-Age : <?= (date('Y') - $dataTrajet->DATENAISS_ANNEE) ?><br />
+Conducteur: <?php echo $dataTrajet->PRENOM ?> <?= $dataTrajet->NOM ?><br />
+Age : <?php echo (date('Y') - $dataTrajet->DATENAISS_ANNEE) ?><br />
 
 <br />	
 
