@@ -14,10 +14,10 @@ ini_set('magic_quotes_runtime', 0);
 require_once('fonctions.php');
 
 // Connexion à la base de données
-$db['user'] 	= "agile";
-$db['password'] = "4g!l3";
-$db['dbname'] 	= "agile";
-$db['host'] 	= "barbatos.fr";
+$db['user'] 	= "projet_agilef";
+$db['password'] = "ae9azaSh";
+$db['dbname'] 	= "projet_agilef";
+$db['host'] 	= "spartacus.iutc3.unicaen.fr";
 $db['db'] 		= "mysql:host=".$db['host'].";dbname=".$db['dbname'].";charset=UTF8";
 
 $bdd = new PDO($db['db'], $db['user'], $db['password'], array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING));
