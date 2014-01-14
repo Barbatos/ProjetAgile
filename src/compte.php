@@ -34,12 +34,12 @@ if(P()){
 			$data = $stmt->fetch(PDO::FETCH_OBJ);
 			$stmt->closeCursor();
 
-			if($data->MDP != P('ancienmdp')){
+			if($data->MDP != sha1(P('ancienmdp'))){
 				message_redirect("L'ancien mot de passe ne correspond pas.", 'compte.php');
 			}
 
 			$stmt = $bdd->prepare('UPDATE UTILISATEUR SET MDP = :mdp WHERE ID_UTILISATEUR = :id');
-			$stmt->bindValue(':mdp', P('nouveaumdp'));
+			$stmt->bindValue(':mdp', sha1(P('nouveaumdp')));
 			$stmt->bindValue(':id', $_SESSION['id']);
 			$stmt->execute();
 			$stmt->closeCursor();
