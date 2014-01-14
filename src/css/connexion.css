@@ -9,3 +9,12 @@
 #autresBoutons {
 	margin-top: 3%;
 }
+
+.form-control {
+	width:200px;
+}
+
+input.form-control
+{
+	/*width:15%;*/
+}

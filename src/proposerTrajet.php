@@ -168,11 +168,11 @@ if(!est_connecte()){
 							}
 					?>
 				</select><br>
-			<tr><td>Lieux :</td> <td><input type="text" name="lieuxA" value="<?php echo $lieuxA ?>" placeholder="Lieux de d'arrivée"/><br>
-			<tr><td>Nombre de places :</td> <td><input type="text" name="nbplace" value="<?php echo $nbplace ?>" placeholder="nb de place dispo"/><br>
-			<tr><td>Prix :</td> <td><input type="text" name="prix" value="<?php echo $prix ?>" placeholder="Valeur Du trajet"/><br>
-			<tr><td>Date de Départ :</td> <td><input type="text" name="date" name="date1" placeholder="Jour de Trajet"onclick="ds_sh(this);" /><br>
-			<tr><td>Heure :</td> <td><input type="text" name="heure" placeholder="Heure Départ" class="hourPicker" /><br>
+			<tr><td>Lieux :</td> <td><input type="text" class="form-control input-normal" name="lieuxA" value="<?php echo $lieuxA ?>" placeholder="Lieux de d'arrivée"/><br>
+			<tr><td>Nombre de places :</td> <td><input type="text" class="form-control input-normal" name="nbplace" value="<?php echo $nbplace ?>" placeholder="nb de place dispo"/><br>
+			<tr><td>Prix :</td> <td><input type="text" name="prix" class="form-control input-normal" value="<?php echo $prix ?>" placeholder="Valeur Du trajet"/><br>
+			<tr><td>Date de Départ :</td> <td><input type="text" class="form-control input-normal" name="date" name="date1" placeholder="Jour de Trajet"onclick="ds_sh(this);" /><br>
+			<tr><td>Heure :</td> <td><input type="text" class="form-control input-normal" name="heure" placeholder="Heure Départ" class="hourPicker" /><br>
 			</table><br><br>
 			</fieldset>
 			<fieldset>
