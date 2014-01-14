@@ -340,15 +340,13 @@ function mailTo($id_destinataire, $sujet, $message)
 	}
 	else
 	{
-			echo "Une erreur s'est produite lors de l'envois de l'email.";
+			echo "Une erreur c'est produite lors de l'envois de l'email.";
 	}
 }
 
 function mailTo_info($id_destinataire, $code)
 {
-	global $bdd;
-
-	$stmt = $bdd->prepare('SELECT mail FROM UTILISATEUR WHERE ID_UTILISATEUR = '.$id_destinataire.' ;');
+	$stmt = $bdd->prepare('SELECT mail FROM UTILISATEUR WHERE ID_UTILISATEUR = "'.$id_destinataire.'" ;');
 	$stmt->execute();
 	$destinataire = $stmt->fetch(PDO::FETCH_OBJ);
 	$stmt->closeCursor();
@@ -359,10 +357,38 @@ function mailTo_info($id_destinataire, $code)
 	Nous vous invitons à venir consulter l'état de vos demandes sur le site.
 	Votre code passager pour ce trajet sera : ".$code. "
 	Merci d'avoir utilisé notre site.";
-	$entetes = "From: no-reply@covoiturage\n";
-	$entetes .= "MIME-Version: 1.0\n";
-	$entetes .= "Content-Type: text/html; charset=UTF-8\n";
-
-	mail($destinataire->mail,$sujet,$message,$entetes);
+	$headers = "From: Co-Voiturage ";
+	$headers .= "Content-Type: text/plain; charset=\"iso-8859-1\"";
+	if(mail($destinataire,$sujet,$message,$headers))
+	{
+			echo "L'email a bien été envoyé.";
+	}
+	else
+	{
+			echo "Une erreur c'est produite lors de l'envoi de l'email.";
+	}
 }
 
+function mailTo_info_retard($id_destinataire, $raison, $temps)
+{
+	$stmt = $bdd->prepare('SELECT mail FROM UTILISATEUR WHERE ID_UTILISATEUR = "'.$id_destinataire.'" ;');
+	$stmt->execute();
+	$destinataire = $stmt->fetch(PDO::FETCH_OBJ);
+	$stmt->closeCursor();
+	
+	$sujet = 'Info Co-Voiturage';
+	$message = "Bonjour,
+	L'un des passager de votre co-voiturages que vous aviez déposer vous signale un retard.
+	Le retard est de :" . $temps.
+	"La raison est :".$raison;
+	$headers = "From: Co-Voiturage ";
+	$headers .= "Content-Type: text/plain; charset=\"iso-8859-1\"";
+	if(mail($destinataire,$sujet,$message,$headers))
+	{
+			echo "L'email a bien été envoyé.";
+	}
+	else
+	{
+			echo "Une erreur c'est produite lors de l'envoi de l'email.";
+	}
+}
