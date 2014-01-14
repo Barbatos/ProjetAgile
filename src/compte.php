@@ -54,8 +54,7 @@ if(P()){
 
 	if(P('numcarte') || P('datecarte')){
 		if(P('numcarte') && P('datecarte')){
-			$mysqlDate = date('Y-m-d', strtotime(P('datecarte')));
-			echo "mysqldate:".$mysqlDate;
+			$mysqlDate = date('Y-m-d', P('datecarte'));
 			$stmt = $bdd->prepare('UPDATE COMPTE SET NUMERO_CB = :numcb, DATE_VALIDITE = :dateval WHERE ID_UTILISATEUR = :id');
 			$stmt->bindValue(':numcb', P('numcarte'));
 			$stmt->bindValue(':dateval', $mysqlDate);
