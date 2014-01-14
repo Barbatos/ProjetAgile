@@ -1,5 +1,19 @@
 <?php
 
+
+/*
+exemple:
+
+$destinataire = $_POST['mail'];
+$sujet = "sujet email";
+$entetes = "From: no-reply@covoiturage.lol\n";
+$entetes .= "MIME-Version: 1.0\n";
+$entetes .= "Content-Type: text/html; charset=UTF-8\n";
+$txt = "blabla";
+
+mail($destinataire, $sujet, $txt, $entetes);
+*/
+
 // page annuler un trajet
 
 if(est_connecte()){
