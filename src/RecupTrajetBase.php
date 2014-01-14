@@ -16,6 +16,12 @@
 FROM TRAJET
 JOIN VILLE d ON d.ID_VILLE = ID_VILLE_D
 JOIN VILLE a ON a.ID_VILLE = ID_VILLE_A';
+
+	if(P('trajet'))
+	{
+		$id = P('trajet');
+		$req .= 'WHERE ID_TRAJET = "'.$id.'" ;';
+	}
 	
 	$req = $co->query($req);
 	$res = $req->fetchAll();
