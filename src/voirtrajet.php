@@ -51,12 +51,6 @@ if(P()){
 	}
 
 	if(P('accepter') && P('utilisateur')){
-		$stmt = $bdd->prepare('UPDATE PASSAGER SET DEMANDE_VALIDEE = :validation WHERE ID_UTILISATEUR = :user AND ID_TRAJET = :trajet');
-		$stmt->bindValue(':validation', 1);
-		$stmt->bindValue(':user', P('utilisateur'));
-		$stmt->bindValue(':trajet', G('id'));
-		$stmt->execute();
-		
 		$code = genererCode();
 		mailTo_info(P('utilisateur'), $code);
 
@@ -65,8 +59,13 @@ if(P()){
 		$stmt->bindValue(':user', P('utilisateur'));
 		$stmt->bindValue(':trajet', G('id'));
 		$stmt->execute();
-		
 		$stmt->closeCursor();
+
+		$stmt = $bdd->prepare('UPDATE PASSAGER SET DEMANDE_VALIDEE = :validation WHERE ID_UTILISATEUR = :user AND ID_TRAJET = :trajet');
+		$stmt->bindValue(':validation', 1);
+		$stmt->bindValue(':user', P('utilisateur'));
+		$stmt->bindValue(':trajet', G('id'));
+		$stmt->execute();
 
 		message_redirect('La demande de ce passager a bien été validée !', 'voirtrajet.php?id='.G('id'));
 	}
