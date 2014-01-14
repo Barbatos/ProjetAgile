@@ -34,7 +34,7 @@ $stmt = $bdd->prepare("SELECT tra.id_trajet, vi1.nom_ville as ville_d, vi2.nom_v
 			}	
 		?>
 		<br/>
-		<input type="button" value="Details"/>
+		<input type="button" value="Détails"/>
 	</fieldset>
 	
 </form>
