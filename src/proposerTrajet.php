@@ -163,7 +163,7 @@ if(!est_connecte()){
 		<fieldset>
 		<?php
 					
-				$stmt = $bdd->prepare("select id_ville,nom_ville from VILLE");
+				$stmt = $bdd->prepare("select id_ville,nom_ville from VILLE ORDER BY nom_ville ASC");
 				$stmt->execute();
 				$data = $stmt->fetchAll(PDO::FETCH_OBJ);
 				$stmt->closeCursor();

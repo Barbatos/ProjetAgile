@@ -65,7 +65,7 @@ if(!P('rechercheCovoiturage') || !$erreurBool){
 	<div> <?php echo $erreur; ?></div>
 	<?php }
 	if(isset($_GET['averti'])){?>
-		<div>Votre demande a bien etait pris en compte.</div>
+		<div>Votre demande a bien été prise en compte.</div>
 	<?php }
 	?>
 	
