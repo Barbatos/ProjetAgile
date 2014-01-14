@@ -346,7 +346,8 @@ function mailTo($id_destinataire, $sujet, $message)
 
 function mailTo_info($id_destinataire, $code)
 {
-	$stmt = $bdd->prepare('SELECT mail FROM UTILISATEUR WHERE ID_UTILISATEUR = "'.$id_destinataire.'" ;');
+	global $bdd;
+	$stmt = $bdd->prepare('SELECT mail FROM UTILISATEUR WHERE ID_UTILISATEUR = '.$id_destinataire.' ;');
 	$stmt->execute();
 	$destinataire = $stmt->fetch(PDO::FETCH_OBJ);
 	$stmt->closeCursor();
