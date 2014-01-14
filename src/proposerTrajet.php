@@ -115,18 +115,13 @@ if(!est_connecte()){
 				$destinataire = $stmt->fetch(PDO::FETCH_OBJ);
 				$stmt->closeCursor();
 				$sujet = 'Info Co-Voiturage';
-				$headers = "From: Co-Voiturage ";
-				$headers .= "Content-Type: text/plain; charset=\"iso-8859-1\"";
-				if(mail($destinataire->mail,$sujet,$txt,$headers))
-				{
-						echo "L'email a bien été envoyé.";
-				}
-				else
-				{
-						echo "Une erreur c'est produite lors de l'envoi de l'email.";
-				}			
+				$entetes = "From: no-reply@covoiturage\n";
+				$entetes .= "MIME-Version: 1.0\n";
+				$entetes .= "Content-Type: text/html; charset=UTF-8\n";
+
+				mail($destinataire->mail,$sujet,$txt,$entetes);	
 			}
-			header('location:index.php'); 
+			message_redirect("L'annonce a bien été ajoutée !", 'index.php');
 		}
 	}
 	
