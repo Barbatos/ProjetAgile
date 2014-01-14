@@ -156,7 +156,7 @@ if(!est_connecte()){
 								echo '<option value="'.$d->id_ville.'">'.$d->nom_ville.'</option>';
 							}
 						?>
-				</select><br>
+				</select><br/>
 			<tr><td>Lieux :</td> <td><input type="text" class="form-control" name="lieuxD" value="<?php echo $lieuxD ?>" placeholder="Lieux de départ"/><br>
 			<tr><td>Ville d'Arrivée :</td> <td>
 				<select id="villeA" name="villeA">
