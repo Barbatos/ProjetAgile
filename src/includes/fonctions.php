@@ -286,3 +286,17 @@ function dateformat($dateheure, $datetime = 1)
 	return $final;
 }
 
+function genererCode()
+{
+	$code = "";
+	$clef = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789abcdefghijklmnopqrstuvwxyz";
+	
+	
+	for($i=0;$i<6;$i++)
+	{
+		$code .= $clef[rand(0,strlen($clef)-1)];
+	}
+	
+	return $code;
+}	
+

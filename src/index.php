@@ -34,9 +34,11 @@ $stmt = $bdd->prepare("SELECT tra.id_trajet, vi1.nom_ville as ville_d, vi2.nom_v
 			}	
 		?>
 		<br/>
-		<input type="button" value="Détails"/>
-	</fieldset>
-	
+		</select>
+	</fieldset>	
+	<div id="boutonEnvoyer">
+	<button class="btn btn-info">Detail</button>
+	</div>
 </form>
   
 <?php
