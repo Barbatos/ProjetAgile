@@ -71,8 +71,9 @@ $stmt->execute();
 $dataTrajet = $stmt->fetch(PDO::FETCH_OBJ);
 $stmt->closeCursor();
 
-if(est_connecte() && ($_SESSION['id'] != $data->USERID)){
-	if(!empty($data->ID_TRAJET_RESERV)){
+
+if(est_connecte() && ($_SESSION['id'] != $dataTrajet->USERID)){
+	if(!empty($dataTrajet->ID_TRAJET_RESERV)){
 	
 		$stmt = $bdd->prepare("SELECT count(*)  
 								FROM `COMPTE` 
@@ -88,8 +89,6 @@ if(est_connecte() && ($_SESSION['id'] != $data->USERID)){
 		}
 	}
 }
-
-
 
 require_once('templates/header.php');
 ?>
