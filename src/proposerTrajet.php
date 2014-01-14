@@ -1,184 +1,192 @@
 <?php
-
-require_once('includes/init.php'); 
-
-$villeD="";
-$villeA="";
-$lieuxA="";
-$lieuxD="";
-$date="";
-$heure="";
-$prix="";
-$nbplace="";
-
+	require_once('includes/init.php');
 	
-if(isset($_POST['villeD'])){
-	$prixvirgule = '/^[0-9]*,?[0-9]+$/';
-	$prixpoint = '/^[0-9]*.?[0-9]+$/';
-	$nbplacetest = '/^[0-9]*.?[0-9]+$/';
-	$test=true;
-	$erreur='';
-	
-	/**
-	* Test si le prix est valide
-	*/
-	if (preg_match($prixvirgule,$_POST['prix'])||preg_match($prixpoint,$_POST['prix']))
-		$prix=$_POST['prix'];
-	else
-		$test=false;
-	/**
-	* Test si le nombre de place est valide
-	*/
-	if (preg_match($nbplacetest,$_POST['nbplace']))
-		$nbplace=$_POST['nbplace'];
-	else
-		$test=false;
-	
-	/**
-	* Test si tous les champ sont remplits
-	*/
-	if(empty($_POST['prix']))
-		$erreur+="Veuillez rentrée unprix pour le trajet";
-	
-	if(empty($_POST['nbplace']))
-		$erreur+="Veuillez rentrée un nombre de place disponible";
-	
-	if(empty($_POST['villeD']))
-		$erreur+="Veuillez rentrée une ville de départ";
-	else
+	$villeD="";
+	$villeA="";
+	$lieuxA="";
+	$lieuxD="";
+	$date="";
+	$heure="";
+	$prix="";
+	$nbplace="";
+	$erreur=' Insertion Imposible Cause :'.'<br>';
 		
-	if(empty($_POST['villeA']))
-		$erreur+="Veuillez rentrée une ville de d'arrivée";
-		
-	if(empty($_POST['lieuxD']))
-		$erreur+="Veuillez rentrée un lieux de départ";
-	
-	if(empty($_POST['lieuxA']))
-		$erreur+="Veuillez rentrée un lieux de d'arrivée";
-		
-	if(empty($_POST['date']))
-		$erreur+="Veuillez rentrée un date pour le trajet";
-	
-	if(empty($_POST['heure']))
-		$erreur+="Veuillez rentrée l'heure de départ";
-
+	if(isset($_POST['villeD'])){
+		$prixvirgule = '/^[0-9]*,?[0-9]+$/';
+		$prixpoint = '/^[0-9]*.?[0-9]+$/';
+		$nbplacetest = '/^[0-9]*.?[0-9]+$/';
+		$test=true;
 		
 		
+		/**
+		* Test si le prix est valide
+		*/
+		if (preg_match($prixvirgule,$_POST['prix'])||preg_match($prixpoint,$_POST['prix']))
+			$prix=$_POST['prix'];
+		else{
+			$erreur=$erreur.' * Veuillez rentrée un prix valide'.'<br>';
+			$test=false;
+			$prix="";
+		}
+		/**
+		* Test si le nombre de place est valide
+		*/
+		if (preg_match($nbplacetest,$_POST['nbplace']))
+			$nbplace=$_POST['nbplace'];
+		else{
+			$erreur=$erreur.' * Veuillez rentrée un nb de place valide'.'<br>';
+			$test=false;
+			$nbplace="";			
+		}
 		
-	if($erreur=""){
-		$villeD=$_POST['villeD'];
-		$villeA=$_POST['villeD'];
-		$lieuxD=$_POST['lieuxD'];
-		$lieuxA=$_POST['lieuxA'];
-		$date=$_POST['date'];
-		$heure=$_POST['heure'];
-		$login="Administrateur";
-		echo "insertion";
-		//$stmt = $bdd -> prepare ("INSERT INTO trajet(id_trajet, id_utilisateur, id_ville_d, id_ville_a, prix, date_trajet, lieuxA,lieuxD, nb_place) VALUES('1','$login','$villeD','$villeA','$prix','$date','$lieuxA','$lieuxD', '$nbplace')")
-		//$stmt->execute();
-		//insertionTrajet($villeD,$villeA,$lieuxD,$lieuxA,$date,$heure);
-	}else{
+		/**
+		* Test si tous les champ sont remplits
+		*/
+		if(empty($_POST['prix']))
+			$erreur=$erreur.' * Veuillez rentrée un prix pour le trajet'.'<br>';
+		else
+			$prix=$_POST['prix'];
 		
+		if(empty($_POST['nbplace']))
+			$erreur=$erreur.' * Veuillez rentrée un nombre de place disponible'.'<br>';
+		else
+			$nbplace=$_POST['nbplace'];
+		
+		if($_POST['villeD']=='0')
+			$erreur=$erreur.' * Veuillez rentrée une ville de départ'.'<br>';		
+			
+		if($_POST['villeA']=='0')
+			$erreur=$erreur.' * Veuillez rentrée une ville d\'arrivée'.'<br>';
+			
+		if(empty($_POST['lieuxD']))
+			$erreur=$erreur.' * Veuillez rentrée un lieux de départ'.'<br>';
+		else
+			$lieuxD=$_POST['lieuxD'];
+		
+		if(empty($_POST['lieuxA']))
+			$erreur=$erreur.' * Veuillez rentrée un lieux de d\'arrivée'.'<br>';
+		else
+			$lieuxA=$_POST['lieuxA'];
+			
+		if(empty($_POST['date']))
+			$erreur=$erreur.' * Veuillez rentrée un date pour le trajet'.'<br>';
+		
+		if(empty($_POST['heure']))
+			$erreur=$erreur.' * Veuillez rentrée l\'heure de départ'.'<br>';
+			
+		if($erreur==' Insertion Imposible Cause :'.'<br>'){
+			$villeD=$_POST['villeD'];
+			$villeA=$_POST['villeA'];
+			$lieuxD=$_POST['lieuxD'];
+			$lieuxA=$_POST['lieuxA'];
+			$date=$_POST['date'];
+			$heure=$_POST['heure'];
+			$login="Administrateur";
+			$jour=preg_replace('#/[0-9][0-9]/[0-9][0-9][0-9][0-9]#','',$date);
+			$mois=preg_replace('#^[0-9][0-9]/#','',$date);
+			$mois=preg_replace('#/[0-9][0-9][0-9][0-9]#','',$mois);
+			$annee=preg_replace('#[0-9][0-9]/[0-9][0-9]/#','',$date);
+			$date_trajet=$annee.'-'.$mois.'-'.$jour.' '.$heure.':00';
+			$stmt = $bdd -> prepare ("INSERT INTO TRAJET(ID_VILLE_D, PRIX, DATE_TRAJET,ID_VILLE_A,ID_UTILISATEUR,LIEUX_D,NB_PLACE,LIEUX_A,NB_PLACE_OCCUPE) VALUES ('$villeD','$prix','$date_trajet','$villeA',1,'$lieuxD','$nbplace','$lieuxA','$nbplace')");
+			$stmt->execute();
+			header('location:index.php'); 
+		}
+	}
+	
+	if(isset($_POST['reset'])){
+		$villeD="";
+		$villeA="";
+		$lieuxA="";
+		$lieuxD="";
+		$date="";
+		$heure="";
+		$prix="";
+		$nbplace="";
+	}
+	
+	
+		require_once('templates/header.php');
+?>
+<html>
+	<head>
+		<?php require_once('includes/init.php'); ?>
+		<script type="text/javascript" src="js/calendrier.js"></script>
+		<script type="text/javascript" src="js/pickHour.js"></script>	
+		<link rel="stylesheet" media="screen" type="text/css" title="Design" href="css/design.css" />
+		<link rel="stylesheet" media="screen" type="text/css" title="Design" href="css/heure_js.css" />
+	</head>
+	<body>
+		<!-- Tableau obligatoire ! C'est lui qui contiendra le calendrier ! -->
+		<table class="ds_box" cellpadding="0" cellspacing="0" id="ds_conclass" style="display: none;">
+			<tr>
+				<td id="ds_calclass"></td>
+			</tr>
+		</table>
+				
+		<fieldset>
+		<?php
+					
+				$stmt = $bdd->prepare("select id_ville,nom_ville from VILLE");
+				$stmt->execute();
+				$data = $stmt->fetchAll(PDO::FETCH_OBJ);
+				$stmt->closeCursor();
+				
+		?>
+		
+		<form name="formulaire" action="" method="post">
+		<div id="titre">
+			<h1> Création d'un Trajet </h1>
+		</div>
+		<br/>
+		<fieldset>
+		<legend> Création</legend>
+			<table>
+			<tr><td>Ville de Départ :</td> <td>
+				<select id="villeD" name="villeD">
+						<option value='0'>Choisissez la ville départ</option>
+						<?php
+							foreach($data as $d)
+							{
+								echo '<option value="'.$d->id_ville.'">'.$d->nom_ville.'</option>';
+							}
+						?>
+				</select><br>
+			<tr><td>Lieux :</td> <td><input type="text" name="lieuxD" value="<?php echo $lieuxD ?>" placeholder="Lieux de départ"/><br>
+			<tr><td>Ville d'Arrivée :</td> <td>
+				<select id="villeA" name="villeA">
+					<option value='0'>Choisissez la ville d'arrivée</option>
+					<?php
+							foreach($data as $d)
+							{
+							 echo '<option value="'.$d->id_ville.'">'.$d->nom_ville.'</option>';
+							}
+					?>
+				</select><br>
+			<tr><td>Lieux :</td> <td><input type="text" name="lieuxA" value="<?php echo $lieuxA ?>" placeholder="Lieux de d'arrivée"/><br>
+			<tr><td>Nombre de places :</td> <td><input type="text" name="nbplace" value="<?php echo $nbplace ?>" placeholder="nb de place dispo"/><br>
+			<tr><td>Prix :</td> <td><input type="text" name="prix" value="<?php echo $prix ?>" placeholder="Valeur Du trajet"/><br>
+			<tr><td>Date de Départ :</td> <td><input type="text" name="date" name="date1" placeholder="Jour de Trajet"onclick="ds_sh(this);" /><br>
+			<tr><td>Heure :</td> <td><input type="text" name="heure" placeholder="Heure Départ" class="hourPicker" /><br>
+			</table><br><br>
+			</fieldset>
+			<fieldset>
+			<input type="submit" class="btn btn-success btn-large" value="Envoyer">
+			<input type="submit"  name="reset" class="btn btn-danger" value="Effacer">
+			</fieldset>
+		</form>
+		
+		
+	</body>
+</html>
+<?php
+if(!isset($_POST['reset'])){
+	if($erreur!=' Insertion Imposible Cause :'.'<br>'){
 		echo $erreur;
 	}
 }
-	
-$pageActive = "Proposer";
 
-require_once('templates/header.php');
-?>
-
-<div id="titre"><h1>Proposer un trajet</h1></div>
-
-<!-- Tableau obligatoire ! C'est lui qui contiendra le calendrier ! -->
-<table class="ds_box" cellpadding="0" cellspacing="0" id="ds_conclass" style="display: none;">
-	<tr>
-		<td id="ds_calclass"></td>
-	</tr>
-</table>
-	
-<?php
-$stmt = $bdd->prepare("select id_ville,nom_ville from VILLE");
-$stmt->execute();
-$data = $stmt->fetchAll(PDO::FETCH_OBJ);
-$stmt->closeCursor();
-?>
-<!-- Les champs texte avec le code "onclick" déclenchant le script pour afiicher le calendrier-->
-<form name="formulaire" action="" method="post" class="form-horizontal">
-	<legend>Proposer un nouveau covoiturage</legend>
-
-	<div class="control-group">
-		<label class="control-label" for="villeD">Ville de Départ</label>
-		<div class="controls">
-			<select id="villeD" name="villeD">
-				<option value="">Choisissez la ville départ</option>
-				<?php
-				foreach($data as $d)
-				{
-					echo '<option value="'.$d->id_ville.'">'.$d->nom_ville.'</option>';
-				}
-				?>
-			</select>
-		</div>
-	</div>
-	<div class="control-group">
-		<label class="control-label" for="LieuD">Lieu</label>
-		<div class="controls">
-			<input type="text" name="lieuxD" id="LieuD" value="<?php echo $lieuxD ?>" placeholder="Lieu de départ"/>
-		</div>
-	</div>
-	<div class="control-group">
-		<label class="control-label" for="VilleA">Ville d'Arrivée</label>
-		<div class="controls">
-			<select id="VilleA" name="VilleA" id="VilleA">
-				<option value="">Choisissez la ville d'arrivée</option>
-				<?php
-				foreach($data as $d)
-				{
-				 echo '<option value="'.$d->id_ville.'">'.$d->nom_ville.'</option>';
-				}
-				?>
-			</select>
-		</div>
-	</div>
-	<div class="control-group">
-		<label class="control-label" for="LieuA">Lieu</label>
-		<div class="controls">
-			<input type="text" name="lieuxA" id="LieuA" value="<?php echo $lieuxA ?>" placeholder="Lieu de d'arrivée"/>
-		</div>
-	</div>
-
-	<div class="control-group">
-		<label class="control-label" for="NBplace">Nombre de places</label>
-		<div class="controls">
-			<input type="text" name="nbplace" id="NBplace" value="<?php echo $nbplace ?>" placeholder="nb de place dispo"/>
-		</div>
-	</div>
-
-	<div class="control-group">
-		<label class="control-label" for="Prix">Prix</label>
-		<div class="controls">
-			<input type="text" name="prix" id="Prix" value="<?php echo $prix ?>" placeholder="Valeur Du trajet"/>
-		</div>
-	</div>
-
-	<div class="control-group">
-		<label class="control-label" for="Date">Date de Départ :</label>
-		<div class="controls">
-			<input type="text" name="date" name="date1" id="Date" onclick="ds_sh(this);" />
-		</div>
-	</div>
-
-	<div class="control-group">
-		<label class="control-label" for="heure">Heure :</label>
-		<div class="controls">
-			<input type="text" name="heure" id="heure" class="hourPicker" />
-		</div>
-	</div>
-
-	<br />
-	<button class="btn btn-danger">Reset</button>&nbsp;&nbsp;<input class="btn btn-success btn-primary" type="submit" value="Proposer">
-</form>
-		
-<?php 
 require_once('templates/footer.php');
+
+
+
+	
