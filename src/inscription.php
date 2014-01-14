@@ -22,6 +22,11 @@ if(P()){
 		$stmt->bindValue(':annee', P('anneeNaiss'));
 
 		if($stmt->execute()){
+			$stmt = $bdd->prepare('INSERT INTO COMPTE (ID_UTILISATEUR) VALUE (:id)');
+			$stmt->bindValue(':id', $bdd->lastInsertId());
+			$stmt->execute();
+			$stmt->closeCursor();
+
 			message_redirect("Votre inscription est terminée ! Vous pouvez maintenant vous connecter au site.", "connexion.php", 1);
 		}
 		else {

@@ -5,16 +5,16 @@ $erreurBool = true;
 
 if(P('rechercheCovoiturage')){
 	if(!P('villeD')){
-		$erreur = $erreur .'Vous n\'avez pas saisi une ville de depart.<br/>'; 
+		$erreur = $erreur .'Vous n\'avez pas saisi une ville de départ.<br/>'; 
 		$erreurBool = false;
 	}
 	if(!P('villeA')){
-		$erreur = $erreur.'Vous n\'avez pas saisi une ville d\'arriver.<br/>';
+		$erreur = $erreur.'Vous n\'avez pas saisi une ville d\'arrivée.<br/>';
 		$erreurBool = false;
 	}
 	if(!P('date1')){
 	
-		$erreur = $erreur.'Vous n\'avez pas choisi de date de depart.<br/>';
+		$erreur = $erreur.'Vous n\'avez pas choisi de date de départ.<br/>';
 		$erreurBool = false;
 	}
 	if(!P('heureD')){
@@ -74,27 +74,27 @@ if(!P('rechercheCovoiturage') || !$erreurBool){
 
 	<form action="rechercheCovoiturage.php" method="POST">
 		<fieldset>
-		<label for="villeD">Ville de depart: </label><br/>
+		<label for="villeD">Ville de départ</label><br/>
 		<select name="villeD" id="villeD">
 			<?php foreach($ville as $villeS){?>
 					<option value="<?php echo $villeS['NOM_VILLE'];?>" ><?php echo $villeS['NOM_VILLE'];?></option>
 			<?php }?>
 		</select><br/><br/>
 
-		<label for="villeA">Ville d'arrive: </label><br/>
+		<label for="villeA">Ville d'arrivée</label><br/>
 		<select name="villeA" id="villeA">
 			<?php foreach($ville as $villeS){?>
 					<option value="<?php echo $villeS['NOM_VILLE'];?>" ><?php echo $villeS['NOM_VILLE'];?></option>
 			<?php }?>
 		</select><br/><br/>
 
-		<label for="date1">Date de depart: </label><br/>
+		<label for="date1">Date de départ: </label><br/>
 		<input type="text" name="date1" id="date1" onclick="ds_sh(this);" /><br/><br/>
 		
-		<label for="heureD">Heure de depart: </label><br/>
+		<label for="heureD">Heure de départ: </label><br/>
 		<input type="text" class="hourPicker" id="heureD" name="heureD" /><br/><br/>
 
-		<input type="submit" name="rechercheCovoiturage" value="Recherche"/><br/>
+		<input type="submit" name="rechercheCovoiturage" class="btn btn-success" value="Recherche"/><br/>
 		</fieldset>
 	</form>
 

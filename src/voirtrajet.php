@@ -20,6 +20,21 @@ if(P()){
 			message_redirect("Vous avez déjà demandé une place pour ce trajet !", "voirtrajet.php?id=".G('id'), 1);
 		}
 		else {
+			$stmt = $bdd->prepare("
+				SELECT count(*)  
+				FROM `COMPTE` 
+				WHERE id_utilisateur=:utilisateur 
+				and `DATE_VALIDITE`>=sysdate();
+			");
+			$stmt->bindValue(':utilisateur', $_SESSION['id']);
+			$stmt->execute();
+			$data = $stmt->fetch();
+			$stmt->closeCursor();
+		
+			if($data['count(*)']==0){
+				message_redirect("Il faut enregistrer une carte pour s'inscrire au covoiturage !", "compte.php");
+			}
+
 			$stmt = $bdd->prepare("INSERT INTO PASSAGER (ID_TRAJET, ID_UTILISATEUR) VALUES (:trajet, :user)");
 			$stmt->bindValue(':trajet', G('id'));
 			$stmt->bindValue(':user', $_SESSION['id']);
@@ -39,6 +54,14 @@ if(P()){
 		$stmt->bindValue(':user', P('utilisateur'));
 		$stmt->bindValue(':trajet', G('id'));
 		$stmt->execute();
+		
+		$code = genererCode();
+		mailTo_info(P('utilisateur'), $code);
+		$stmt = $bdd->prepare('UPDATE PASSAGER SET CODE = "'.$code.'" WHERE ID_UTILISATEUR = :user AND ID_TRAJET = :trajet');
+		$stmt->bindValue(':user', P('utilisateur'));
+		$stmt->bindValue(':trajet', G('id'));
+		$stmt->execute();
+		
 		$stmt->closeCursor();
 
 		message_redirect('La demande de ce passager a bien été validée !', 'voirtrajet.php?id='.G('id'));
@@ -70,25 +93,6 @@ $stmt->bindValue(':utilisateur', $_SESSION['id']);
 $stmt->execute();
 $dataTrajet = $stmt->fetch(PDO::FETCH_OBJ);
 $stmt->closeCursor();
-
-if(est_connecte() && ($_SESSION['id'] != $data->USERID)){
-	if(!empty($data->ID_TRAJET_RESERV)){
-	
-		$stmt = $bdd->prepare("SELECT count(*)  
-								FROM `COMPTE` 
-								WHERE id_utilisateur=:utilisateur 
-								and `DATE_VALIDITE`>=sysdate();");
-		$stmt->bindValue(':utilisateur', $_SESSION['id']);
-		$stmt->execute();
-		$data = $stmt->fetch();
-		$stmt->closeCursor();
-	
-		if($data['count(*)']==0){
-			message_redirect("Il faut enregistrer une carte pour s'inscrire au covoiturage !", "compte.php");
-		}
-	}
-}
-
 
 
 require_once('templates/header.php');
@@ -209,9 +213,9 @@ Date de départ : <?php echo dateformat(strtotime($dataTrajet->DATE_TRAJET), 0) 
 Heure de départ : <?php echo date('H\hi', strtotime($dataTrajet->DATE_TRAJET)) ?><br /><br />
 
 Prix : <?php echo $dataTrajet->PRIX ?>€<br />
-Nombre de places : <?php echo $dataTrajet->NB_PLACE ?><br /><br /><br />
+Nb de places proposées : <?php echo $dataTrajet->NB_PLACE ?><br /><br /><br />
 
-Conducteur: <?php echo $dataTrajet->PRENOM ?> <?= $dataTrajet->NOM ?><br />
+Conducteur: <?php echo $dataTrajet->PRENOM ?> <?php echo $dataTrajet->NOM ?><br />
 Age : <?php echo (date('Y') - $dataTrajet->DATENAISS_ANNEE) ?><br />
 
 <br />	
@@ -223,11 +227,20 @@ if(est_connecte() && ($_SESSION['id'] != $dataTrajet->USERID)){
 		<input type="button" class="btn btn-large btn-warning" value="Demande de réservation confirmée. Attente de la validation du conducteur...">
 	<?php 
 	} else { 
-	?>
-	<form name="demanderPlace" method="post" action="">
-		<input type="submit" class="btn btn-large btn-warning" name="demanderPlace" value="Demander une place">
-	</form>
+		$nbPlacesDispo = compterPlacesDispo($dataTrajet->ID_TRAJET);
+		if($nbPlacesDispo <= 0){
+		?>
+		<p><font color="red">Il ne reste plus de places disponibles.</font></p>
+		<?php 
+		}
+		else {
+		?>
+		<p>Il reste <?php echo $nbPlacesDispo ?> place<?php echo ($nbPlacesDispo > 1) ? 's' : '' ?> disponible<?php echo ($nbPlacesDispo > 1) ? 's' : '' ?>.</p>
+		<form name="demanderPlace" method="post" action="">
+			<input type="submit" class="btn btn-large btn-warning" name="demanderPlace" value="Demander une place">
+		</form>
 	<?php
+		}
 	}
 }
 else if(!est_connecte()){
