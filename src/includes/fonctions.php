@@ -318,3 +318,54 @@ function compterPlacesDispo($idTrajet){
 
 	return $nbPlaces->NB_PLACE - $nbPlacesPrises->nb;
 }
+
+function mailTo($id_destinataire, $sujet, $message)
+{
+	$stmt = $bdd->prepare('SELECT mail FROM UTILISATEUR WHERE ID_UTILISATEUR = "'.$id_destinataire.'" ;');
+	$stmt->execute();
+	$data = $stmt->fetch(PDO::FETCH_OBJ);
+	$stmt->closeCursor();
+		
+	$sujet = 'Sujet de l\'email';
+	$message = "Bonjour,
+	Ceci est un message texte envoyé grâce à  php.
+	merci :)";
+	$destinataire = 'destinataire@domaine.com';
+	$headers = "From: \"expediteur moi\"<moi@domaine.com>\n";
+	$headers .= "Reply-To: moi@domaine.com\n";
+	$headers .= "Content-Type: text/plain; charset=\"iso-8859-1\"";
+	if(mail($destinataire,$sujet,$message,$headers))
+	{
+			echo "L'email a bien été envoyé.";
+	}
+	else
+	{
+			echo "Une erreur c'est produite lors de l'envois de l'email.";
+	}
+}
+
+function mailTo_info($id_destinataire, $code)
+{
+	$stmt = $bdd->prepare('SELECT mail FROM UTILISATEUR WHERE ID_UTILISATEUR = "'.$id_destinataire.'" ;');
+	$stmt->execute();
+	$destinataire = $stmt->fetch(PDO::FETCH_OBJ);
+	$stmt->closeCursor();
+	
+	$sujet = 'Info Co-Voiturage';
+	$message = "Bonjour,
+	L'un des co-voiturages que vous aviez demandé vient d'être validé.
+	Nous vous invitons à venir consulter l'état de vos demandes sur le site.
+	Votre code passager pour ce trajet sera : ".$code. "
+	Merci d'avoir utilisé notre site.";
+	$headers = "From: Co-Voiturage ";
+	$headers .= "Content-Type: text/plain; charset=\"iso-8859-1\"";
+	if(mail($destinataire,$sujet,$message,$headers))
+	{
+			echo "L'email a bien été envoyé.";
+	}
+	else
+	{
+			echo "Une erreur c'est produite lors de l'envoi de l'email.";
+	}
+}
+

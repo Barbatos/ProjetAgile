@@ -54,6 +54,12 @@ if(P()){
 		$stmt->bindValue(':user', P('utilisateur'));
 		$stmt->bindValue(':trajet', G('id'));
 		$stmt->execute();
+		
+		$code = genererCode()
+		mailTo_info(P('utilisateur'), $code);
+		$stmt = $bdd->prepare('UPDATE PASSAGER SET CODE = "'.$code'" WHERE ID_UTILISATEUR = :user AND ID_TRAJET = :trajet');
+		$stmt->execute();
+		
 		$stmt->closeCursor();
 
 		message_redirect('La demande de ce passager a bien été validée !', 'voirtrajet.php?id='.G('id'));
