@@ -59,7 +59,11 @@ if(!P('rechercheCovoiturage') || !$erreurBool){
 	<?php 
 	if(!$erreurBool){ ?>
 	<div> <?php echo $erreur; ?></div>
-	<?php } ?>
+	<?php }
+	if(isset($_GET['averti'])){?>
+		<div>Votre demande a bien etait pris en compte.</div>
+	<?php }
+	?>
 	
 	<!-- Tableau obligatoire ! C'est lui qui contiendra le calendrier ! -->
 	<table class="ds_box" cellpadding="0" cellspacing="0" id="ds_conclass" style="display: none;">

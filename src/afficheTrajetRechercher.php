@@ -41,5 +41,8 @@ if(!empty($resultat)){
 else{ ?>
 
 	<div>Il n'y a pas de trajet de disponible.</div>
+	<form action="enregistreAvertisement.php?villeD=<?php echo $villeDepart.'&villeA='.$villeArriver.'&dateD='.$date_trajet;?>" method="POST">
+		<input type="submit" name="avertisment" value="Etre averti"/>
+	</form>
 <?php }
 ?>
