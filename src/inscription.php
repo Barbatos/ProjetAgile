@@ -1,6 +1,8 @@
 <?php 
 require_once('includes/init.php');
 
+$pageActive = "Inscription";
+
 if(P()){
 	if(P('nom') && P('prenom') && P('motdepasse') && P('tel') && P('adresseMail') && P('jourNaiss') && P('moisNaiss') && P('anneeNaiss')){
 		$stmt = $bdd->prepare("
@@ -40,16 +42,24 @@ require_once('templates/header.php');
 <form name="inscription" action="" method="post">
   	<br>
   	<fieldset>
+	<div id="legend">
   	<legend><b>Inscription :</b></legend>
-  	Nom d'utilisateur: <input type="text" name="login" size="30" maxlength="30"><br />
-  	Mot de passe: <input type="password" name="motdepasse" size="30" maxlength="256"><br/><br />
-
-  	Nom: <input type="text" name="nom" size="30" maxlength="256" ><br/>
-  	Prénom: <input type="text" name="prenom" size="30" maxlength="256"><br/><br />
-
-  	Numéro de téléphone: <input type="text" name="tel" size="20" maxlength="20"><br />
-  	Adresse e-mail: <input type="text" name="adresseMail" size="30" maxlength="256"><br/>
-  	Date de naissance: 
+	</div>
+	<div id = "inscription">
+	<table>
+	<tr><td>Nom d'utilisateur:</td> <td><input type="text" name="login" size="30" maxlength="30"></td></tr>	
+	
+	<tr><td>Mot de passe: </td><td><input type="password" name="motdepasse" size="30" maxlength="256"></td></tr>	
+	
+  	<tr><td>Nom:</td> <td> <input type="text" name="nom" size="30" maxlength="256" ></td></tr><br/>
+  	
+	<tr><td>Prénom:</td> <td> <input type="text" name="prenom" size="30" maxlength="256"></td></tr>
+	
+  	<tr><td>Numéro de téléphone: </td> <td><input type="text" name="tel" size="20" maxlength="20"></td></tr>
+  	
+	<tr><td>Adresse e-mail: </td> <td><input type="text" name="adresseMail" size="30" maxlength="256"></td></tr>
+  
+	<tr><td>Date de naissance: </td> <td>
   	<select name="jourNaiss" >
   	<?php
   	for ($i = 1; $i < 32; $i++) //Liste des jour de naissance
@@ -74,10 +84,12 @@ require_once('templates/header.php');
   	{
   		echo '<option value="'.$i.'">'.$i.'</option>';
   	}?>
-  	</select><br/>
-  
-  	<input type="submit" name="valider" value="Valider"> 
-  
+  	</select></td></tr><br/>
+	</table>
+	</div>
+	<div id = "boutonEnvoyer">
+  	<input type="submit" class="btn btn-success btn-large" value="Valider"/>
+	</div>
   	</fieldset>
 </form>	
 	

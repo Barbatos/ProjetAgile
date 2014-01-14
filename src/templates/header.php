@@ -1,12 +1,18 @@
  <!DOCTYPE html>
 <html lang="fr">
 	<head>
-		<title>DBM Web Design - Bootstrap Responsive Design</title>
+		<title>Covoiturage</title>
 			<!-- On ouvre la fenêtre à la largeur de l'écran -->
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
 			<!-- Intégration du CSS Bootstrap -->
-			<link href="./css/bootstrap.css" rel="stylesheet" media="screen">
-			<link href="./css/connexion.css" rel="stylesheet" media="screen">
+			<link href="./css/bootstrap.css" rel="stylesheet" media="screen" />
+			<link href="./css/connexion.css" rel="stylesheet" media="screen" />
+			<link href="./css/inscription.css" rel="stylesheet" media="screen" />
+      <link href="./css/design.css" rel="stylesheet" media="screen" />
+      <link href="./css/heure_js.css" rel="stylesheet" media="screen" />
+
+      <script type="text/javascript" src="./js/calendrier.js"></script>
+      <script type="text/javascript" src="./js/pickHour.js"></script> 
 	</head>
 <body>
 
@@ -14,27 +20,20 @@
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Covoiturage</a>
+          <a class="navbar-brand" href="index.php">Covoiturage</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="index.php">Accueil</a></li>
-            <li><a href="rechercheCovoiturage.php">Chercher covoiturage</a></li>
-						<li><a href="#proposer">Proposer covoiturage</a></li>         
+            <li <?php if($pageActive == "Accueil") echo 'class="active"' ?>><a href="index.php">Accueil</a></li>
+            <li <?php if($pageActive == "Chercher") echo 'class="active"' ?>><a href="rechercheCovoiturage.php">Chercher covoiturage</a></li>
+	          <li <?php if($pageActive == "Proposer") echo 'class="active"' ?>><a href="proposerTrajet.php">Proposer covoiturage</a></li>         
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            
             <?php if(est_connecte()){ ?>
             <li><a href="deconnexion.php">Déconnexion</a></li>
             <?php } else { ?>
-            <li><a href="inscription.php">Inscription</a></li>
-            <li><a href="connexion.php">Connexion</a></li>
+            <li <?php if($pageActive == "Inscription") echo 'class="active"' ?>><a href="inscription.php">Inscription</a></li>
+            <li <?php if($pageActive == "Connexion") echo 'class="active"' ?>><a href="connexion.php">Connexion</a></li>
             <?php } ?>
           </ul>
         </div>

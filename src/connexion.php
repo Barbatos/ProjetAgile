@@ -1,6 +1,8 @@
 <?php 
 require_once('includes/init.php');
 
+$pageActive = "Connexion";
+
 if(P()){
 	if(P('identifiant') && P('mdp')){
 		$stmt = $bdd->prepare("SELECT * FROM UTILISATEUR WHERE LOGIN = :login AND MDP = :password");
@@ -30,26 +32,26 @@ require_once('templates/header.php');
 
 <form name="formulaire" action="" method="post" enctype="multipart/form-data">
 	<div id="titre">
-	<h1> Connexion site Co-Voiturage </h1>
+		<h1>Connexion au site</h1>
 	</div>
 	<br/>
 	<fieldset>
-		<legend> Connexion</legend>
+		<legend>Connexion</legend>
 		<label for="identifiant"> Identifiant : </label> <br/>
 		<input id="identifiant" type="text" name="identifiant" placeholder="Votre nom d'utilisateur"><br/>
 		<br/>
 		<label for="mdp"> Mot de passe : </label> <br/>
 		<input id="mdp" type="password" name="mdp" placeholder="Votre mot de passe"><br/>
 		<br/>
-		
-		<a href="..." > <input type="button" value="Mot de passe oublié" class="btn btn-default"> </a>
-		<a href="..." > <input type="button" value="Créer un compte" class="btn btn-default"> </a>
 	</fieldset>
-	<div id="boutonfin">
-	<fieldset>
-		<button class="btn btn-danger">Effacer</button>
-		<input type="submit" class="btn btn-success btn-large" value="Envoyer"/>
-	</fieldset>
+	<div id="boutonEnvoyer">
+		<fieldset>
+			<input type="submit" class="btn btn-success btn-large" value="Connexion" />
+		</fieldset>
+	</div>
+	<div id="autresBoutons">
+		<a class="btn btn-small btn-info" href="mdpOublie.php">Mot de passe oublié</a>&nbsp;&nbsp;
+		<a class="btn btn-small btn-info" href="inscription.php">Créer un compte</a>
 	</div>
 </form>
 

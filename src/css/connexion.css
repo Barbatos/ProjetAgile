@@ -1,9 +1,11 @@
-#titre
-{
-margin-top:8%;
+#titre {
+	margin-top: 8%;
 }
 
-#boutonfin
-{
-margin-top:3%;
+#boutonEnvoyer {
+	margin-top: 1%;
+}
+
+#autresBoutons {
+	margin-top: 3%;
 }
