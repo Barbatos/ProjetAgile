@@ -1,8 +1,11 @@
+<div id="titre"><h1>Recherche de covoiturage</h1></div>
+
 <?php
-if(empty($resultat)){
+if(!empty($resultat)){
 	?>
 	<table>
 		<thead>
+		<table class = "table">
 			<tr>
 				<th>Ville de depart</th>
 				<th>Ville d'arriver</th>
@@ -15,8 +18,9 @@ if(empty($resultat)){
 		<body>
 	<?php
 		foreach($resultat as $trajet){
-			if($trajet['NB_PLACE_OCCUPE'] < $trajet['NB_PLACE']){
+			//if($trajet['NB_PLACE_OCCUPE'] < $trajet['NB_PLACE']){
 	?>
+		
 			<tr>
 				<td><?php echo $trajet['villeDepart'];?></td>
 				<td><?php echo $trajet['villeArriver'];?></td>
@@ -25,8 +29,9 @@ if(empty($resultat)){
 				<td><?php echo $trajet['NB_PLACE'];?></td>
 				<td><a href="voirtrajet.php?id=<?php echo $trajet['ID_TRAJET'];?>" title="Detail du covoiturage">Detail</a></td>
 			</tr>
+		</table>
 	<?php
-			}
+			//}
 		}
 	?>
 		</body>

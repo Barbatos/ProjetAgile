@@ -71,26 +71,6 @@ $stmt->execute();
 $dataTrajet = $stmt->fetch(PDO::FETCH_OBJ);
 $stmt->closeCursor();
 
-if(est_connecte() && ($_SESSION['id'] != $data->USERID)){
-	if(!empty($data->ID_TRAJET_RESERV)){
-	
-		$stmt = $bdd->prepare("SELECT count(*)  
-								FROM `COMPTE` 
-								WHERE id_utilisateur=:utilisateur 
-								and `DATE_VALIDITE`>=sysdate();");
-		$stmt->bindValue(':utilisateur', $_SESSION['id']);
-		$stmt->execute();
-		$data = $stmt->fetch();
-		$stmt->closeCursor();
-	
-		if($data['count(*)']==0){
-			message_redirect("Il faut enregistrer une carte pour s'inscrire au covoiturage !", "compte.php");
-		}
-	}
-}
-
-
-
 require_once('templates/header.php');
 ?>
 

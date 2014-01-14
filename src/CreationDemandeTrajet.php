@@ -13,8 +13,6 @@ if(!est_connecte()){
 	$lieuxD="";
 	$date="";
 	$heure="";
-	$prix="";
-	$nbplace="";
 	$erreur=' Insertion Imposible Cause :'.'<br>';
 		
 	if(isset($_POST['villeD'])){
@@ -23,41 +21,9 @@ if(!est_connecte()){
 		$nbplacetest = '/^[0-9]*.?[0-9]+$/';
 		$test=true;
 		
-		
-		/**
-		* Test si le prix est valide
-		*/
-		if (preg_match($prixvirgule,$_POST['prix'])||preg_match($prixpoint,$_POST['prix']))
-			$prix=$_POST['prix'];
-		else{
-			$erreur=$erreur.' * Veuillez rentrée un prix valide'.'<br>';
-			$test=false;
-			$prix="";
-		}
-		/**
-		* Test si le nombre de place est valide
-		*/
-		if (preg_match($nbplacetest,$_POST['nbplace']))
-			$nbplace=$_POST['nbplace'];
-		else{
-			$erreur=$erreur.' * Veuillez rentrée un nb de place valide'.'<br>';
-			$test=false;
-			$nbplace="";			
-		}
-		
 		/**
 		* Test si tous les champ sont remplits
 		*/
-		if(empty($_POST['prix']))
-			$erreur=$erreur.' * Veuillez rentrée un prix pour le trajet'.'<br>';
-		else
-			$prix=$_POST['prix'];
-		
-		if(empty($_POST['nbplace']))
-			$erreur=$erreur.' * Veuillez rentrée un nombre de place disponible'.'<br>';
-		else
-			$nbplace=$_POST['nbplace'];
-		
 		if($_POST['villeD']=='0')
 			$erreur=$erreur.' * Veuillez rentrée une ville de départ'.'<br>';		
 			
@@ -93,7 +59,7 @@ if(!est_connecte()){
 			$mois=preg_replace('#/[0-9][0-9][0-9][0-9]#','',$mois);
 			$annee=preg_replace('#[0-9][0-9]/[0-9][0-9]/#','',$date);
 			$date_trajet=$annee.'-'.$mois.'-'.$jour.' '.$heure.':00';
-			$stmt = $bdd -> prepare ("INSERT INTO TRAJET(ID_VILLE_D, PRIX, DATE_TRAJET,ID_VILLE_A,ID_UTILISATEUR,LIEUX_D,NB_PLACE,LIEUX_A,NB_PLACE_OCCUPE) VALUES ('$villeD','$prix','$date_trajet','$villeA', '".$_SESSION['id']."','$lieuxD','$nbplace','$lieuxA','$nbplace')");
+			$stmt = $bdd -> prepare ("INSERT INTO DEMANDETRAJET(ID_VILLE_D, PRIX, DATE_TRAJET,ID_VILLE_A,ID_UTILISATEUR,LIEUX_D,NB_PLACE,LIEUX_A,NB_PLACE_OCCUPE) VALUES ('$villeD','$prix','$date_trajet','$villeA', '".$_SESSION['id']."','$lieuxD','$nbplace','$lieuxA','$nbplace')");
 			$stmt->execute();
 			header('location:index.php'); 
 		}
@@ -106,8 +72,6 @@ if(!est_connecte()){
 		$lieuxD="";
 		$date="";
 		$heure="";
-		$prix="";
-		$nbplace="";
 	}
 	
 		$pageActive = "Proposer";
@@ -141,11 +105,11 @@ if(!est_connecte()){
 		
 		<form name="formulaire" action="" method="post">
 		<div id="titre">
-			<h1> Création d'un Trajet </h1>
+			<h1> Création d'une demande de trajet </h1>
 		</div>
 		<br/>
 		<fieldset>
-		<legend> Création</legend>
+		<legend> Demande</legend>
 			<table>
 			<tr><td>Ville de Départ :</td> <td>
 				<select id="villeD" name="villeD">
@@ -156,8 +120,8 @@ if(!est_connecte()){
 								echo '<option value="'.$d->id_ville.'">'.$d->nom_ville.'</option>';
 							}
 						?>
-				</select><br/>
-			<tr><td>Lieux :</td> <td><input type="text" class="form-control" name="lieuxD" value="<?php echo $lieuxD ?>" placeholder="Lieux de départ"/><br>
+				</select><br>
+			<tr><td>Lieux :</td> <td><input type="text" name="lieuxD" value="<?php echo $lieuxD ?>" placeholder="Lieux de départ"/><br>
 			<tr><td>Ville d'Arrivée :</td> <td>
 				<select id="villeA" name="villeA">
 					<option value='0'>Choisissez la ville d'arrivée</option>
@@ -168,11 +132,9 @@ if(!est_connecte()){
 							}
 					?>
 				</select><br>
-			<tr><td>Lieux :</td> <td><input type="text" class="form-control" name="lieuxA" value="<?php echo $lieuxA ?>" placeholder="Lieux de d'arrivée"/><br>
-			<tr><td>Nombre de places :</td> <td><input type="text" class="form-control" name="nbplace" value="<?php echo $nbplace ?>" placeholder="nb de place dispo"/><br>
-			<tr><td>Prix :</td> <td><input type="text" name="prix" class="form-control" value="<?php echo $prix ?>" placeholder="Valeur Du trajet"/><br>
-			<tr><td>Date de Départ :</td> <td><input type="text" class="form-control" name="date" name="date1" placeholder="Jour de Trajet"onclick="ds_sh(this);" /><br>
-			<tr><td>Heure :</td> <td><input type="text" class="form-control" name="heure" placeholder="Heure Départ" class="hourPicker" /><br>
+			<tr><td>Lieux :</td> <td><input type="text" name="lieuxA" value="<?php echo $lieuxA ?>" placeholder="Lieux de d'arrivée"/><br>
+			<tr><td>Date de Départ :</td> <td><input type="text" name="date" name="date1" placeholder="Jour de Trajet"onclick="ds_sh(this);" /><br>
+			<tr><td>Heure :</td> <td><input type="text" name="heure" placeholder="Heure Départ" class="hourPicker" /><br>
 			</table><br><br>
 			</fieldset>
 			<fieldset>

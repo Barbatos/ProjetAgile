@@ -22,6 +22,11 @@ if(P()){
 		$stmt->bindValue(':annee', P('anneeNaiss'));
 
 		if($stmt->execute()){
+			$stmt = $bdd->prepare('INSERT INTO COMPTE (ID_UTILISATEUR) VALUE (:id)');
+			$stmt->bindValue(':id', $bdd->lastInsertId());
+			$stmt->execute();
+			$stmt->closeCursor();
+
 			message_redirect("Votre inscription est terminée ! Vous pouvez maintenant vous connecter au site.", "connexion.php", 1);
 		}
 		else {
@@ -47,17 +52,17 @@ require_once('templates/header.php');
 	</div>
 	<div id = "inscription">
 	<table>
-	<tr><td>Nom d'utilisateur:</td> <td><input type="text" name="login" size="30" maxlength="30"></td></tr>	
+	<tr><td>Nom d'utilisateur:</td> <td><input type="text" class="form-control" name="login" size="30" maxlength="30"></td></tr>	
 	
-	<tr><td>Mot de passe: </td><td><input type="password" name="motdepasse" size="30" maxlength="256"></td></tr>	
+	<tr><td>Mot de passe: </td><td><input type="password" class="form-control" name="motdepasse" size="30" maxlength="256"></td></tr>	
 	
-  	<tr><td>Nom:</td> <td> <input type="text" name="nom" size="30" maxlength="256" ></td></tr><br/>
+  	<tr><td>Nom:</td> <td> <input type="text" class="form-control" name="nom" size="30" maxlength="256" ></td></tr><br/>
   	
-	<tr><td>Prénom:</td> <td> <input type="text" name="prenom" size="30" maxlength="256"></td></tr>
+	<tr><td>Prénom:</td> <td> <input type="text" class="form-control" name="prenom" size="30" maxlength="256"></td></tr>
 	
-  	<tr><td>Numéro de téléphone: </td> <td><input type="text" name="tel" size="20" maxlength="20"></td></tr>
+  	<tr><td>Numéro de téléphone: </td> <td><input type="text" class="form-control" name="tel" size="20" maxlength="20"></td></tr>
   	
-	<tr><td>Adresse e-mail: </td> <td><input type="text" name="adresseMail" size="30" maxlength="256"></td></tr>
+	<tr><td>Adresse e-mail: </td> <td><input type="text" class="form-control" name="adresseMail" size="30" maxlength="256"></td></tr>
   
 	<tr><td>Date de naissance: </td> <td>
   	<select name="jourNaiss" >
