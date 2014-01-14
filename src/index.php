@@ -23,7 +23,7 @@ $stmt = $bdd->prepare("SELECT tra.id_trajet, vi1.nom_ville as ville_d, vi2.nom_v
 	<br/>
 	<fieldset>
 		<legend> Derniers covoiturages proposés </legend>
-		<select size="10">
+		<select name="trajet" size="10">
 		<?php
 			foreach($data as $d)
 			{
@@ -31,10 +31,12 @@ $stmt = $bdd->prepare("SELECT tra.id_trajet, vi1.nom_ville as ville_d, vi2.nom_v
 				$libelle = $d->ville_d." -> ".$d->ville_a." ".$d->date_tra;
 			  echo '<option value="'.$d->id_trajet.'">'.$libelle;
 			  echo '</option>';
-			}
-				
+			}	
 		?>
+		<br/>
+		<input type="button" value="Details"/>
 	</fieldset>
+	
 </form>
   
 <?php
