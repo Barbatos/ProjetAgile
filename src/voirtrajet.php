@@ -210,7 +210,7 @@ Heure de départ : <?php echo date('H\hi', strtotime($dataTrajet->DATE_TRAJET)) 
 Prix : <?php echo $dataTrajet->PRIX ?>€<br />
 Nombre de places : <?php echo $dataTrajet->NB_PLACE ?><br /><br /><br />
 
-Conducteur: <?php echo $dataTrajet->PRENOM ?> <?= $dataTrajet->NOM ?><br />
+Conducteur: <?php echo $dataTrajet->PRENOM ?> <?php echo $dataTrajet->NOM ?><br />
 Age : <?php echo (date('Y') - $dataTrajet->DATENAISS_ANNEE) ?><br />
 
 <br />	
