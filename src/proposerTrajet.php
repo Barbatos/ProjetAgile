@@ -177,7 +177,7 @@ $stmt->closeCursor();
 	</div>
 
 	<br />
-	<input type="reset" class="btn" name="reset" id="reset" value="Reset">&nbsp;&nbsp;<input class="btn btn-success btn-primary" type="submit" value="Proposer">
+	<button class="btn btn-danger">Reset</button>&nbsp;&nbsp;<input class="btn btn-success btn-primary" type="submit" value="Proposer">
 </form>
 		
 <?php 
