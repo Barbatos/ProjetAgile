@@ -7,6 +7,10 @@ if(!G('id')){
 	message_redirect("L'adresse URL est incorrecte !", "index.php");
 }
 
+if(!est_connecte()){
+	message_redirect("Vous devez être connecté pour voir cette page !", "index.php");
+}
+
 if(P()){
 	if(P('demanderPlace')){
 		$stmt = $bdd->prepare("SELECT * FROM PASSAGER WHERE ID_TRAJET = :trajet AND ID_UTILISATEUR = :utilisateur");
