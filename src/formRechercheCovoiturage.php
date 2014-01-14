@@ -1,7 +1,12 @@
 <?php 
 
+$pageActive = "Recherche";
+
 require_once('templates/header.php');
 ?>
+
+<div id="titre"><h1>Recherche de covoiturage</h1></div>
+
 <!-- Tableau obligatoire ! C'est lui qui contiendra le calendrier ! -->
 <table class="ds_box" cellpadding="0" cellspacing="0" id="ds_conclass" style="display: none;">
 	<tr>
