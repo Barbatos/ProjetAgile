@@ -7,11 +7,12 @@ if(!est_connecte()){
 if(P()){
 	if(P('nom') || P('prenom')){
 		if(P('nom') && P('prenom') && P('email') && P('tel')){
-			$stmt = $bdd->prepare('UPDATE UTILISATEUR SET NOM = :nom, PRENOM = :prenom, MAIL = :email, TEL = :tel');
+			$stmt = $bdd->prepare('UPDATE UTILISATEUR SET NOM = :nom, PRENOM = :prenom, MAIL = :email, TEL = :tel WHERE ID_UTILISATEUR = :id');
 			$stmt->bindValue(':nom', P('nom'));
 			$stmt->bindValue(':prenom', P('prenom'));
 			$stmt->bindValue(':email', P('email'));
 			$stmt->bindValue(':tel', P('tel'));
+			$stmt->bindValue(':id', $_SESSION['id']);
 			$stmt->execute();
 			$stmt->closeCursor();
 
