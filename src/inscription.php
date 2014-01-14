@@ -5,33 +5,43 @@ $pageActive = "Inscription";
 
 if(P()){
 	if(P('nom') && P('prenom') && P('motdepasse') && P('tel') && P('adresseMail') && P('jourNaiss') && P('moisNaiss') && P('anneeNaiss')){
-		$stmt = $bdd->prepare("
-			INSERT INTO UTILISATEUR (LOGIN, MDP, NOM, PRENOM, ID_TYPE, MAIL, TEL, DATENAISS_JOUR, DATENAISS_MOIS, DATENAISS_ANNEE) 
-			VALUES 
-			(:login, :mdp, :nom, :prenom, :type, :mail, :tel, :jour, :mois, :annee)
-		");
-		$stmt->bindValue(':login', P('login'));
-		$stmt->bindValue(':mdp', sha1(P('motdepasse')));
-		$stmt->bindValue(':type', 1);
-		$stmt->bindValue(':mail', P('adresseMail'));
-		$stmt->bindValue(':tel', P('tel'));
+		
+		$stmt = $bdd->prepare("SELECT count(*) FROM UTILISATEUR WHERE NOM = :nom");
 		$stmt->bindValue(':nom', P('nom'));
-		$stmt->bindValue(':prenom', P('prenom'));
-		$stmt->bindValue(':jour', P('jourNaiss'));
-		$stmt->bindValue(':mois', P('moisNaiss'));
-		$stmt->bindValue(':annee', P('anneeNaiss'));
+		$stmt->execute();
+		$nb = $stmt->fetch(PDO::FETCH_OBJ);
+		
+		if($nb <= 0)
+		{
+			$stmt = $bdd->prepare("
+				INSERT INTO UTILISATEUR (LOGIN, MDP, NOM, PRENOM, ID_TYPE, MAIL, TEL, DATENAISS_JOUR, DATENAISS_MOIS, DATENAISS_ANNEE) 
+				VALUES 
+				(:login, :mdp, :nom, :prenom, :type, :mail, :tel, :jour, :mois, :annee)
+			");
+			$stmt->bindValue(':login', P('login'));
+			$stmt->bindValue(':mdp', sha1(P('motdepasse')));
+			$stmt->bindValue(':type', 1);
+			$stmt->bindValue(':mail', P('adresseMail'));
+			$stmt->bindValue(':tel', P('tel'));
+			$stmt->bindValue(':nom', P('nom'));
+			$stmt->bindValue(':prenom', P('prenom'));
+			$stmt->bindValue(':jour', P('jourNaiss'));
+			$stmt->bindValue(':mois', P('moisNaiss'));
+			$stmt->bindValue(':annee', P('anneeNaiss'));
 
-		if($stmt->execute()){
-			$stmt = $bdd->prepare('INSERT INTO COMPTE (ID_UTILISATEUR) VALUE (:id)');
-			$stmt->bindValue(':id', $bdd->lastInsertId());
-			$stmt->execute();
-			$stmt->closeCursor();
+			if($stmt->execute()){
+				$stmt = $bdd->prepare('INSERT INTO COMPTE (ID_UTILISATEUR) VALUE (:id)');
+				$stmt->bindValue(':id', $bdd->lastInsertId());
+				$stmt->execute();
+				$stmt->closeCursor();
 
-			message_redirect("Votre inscription est terminée ! Vous pouvez maintenant vous connecter au site.", "connexion.php", 1);
+				message_redirect("Votre inscription est terminée ! Vous pouvez maintenant vous connecter au site.", "connexion.php", 1);
+			}
+			else {
+				message_redirect("Une erreur s'est produite lors de l'inscription. Veuillez réessayer.", "inscription.php");
+			}
 		}
-		else {
-			message_redirect("Une erreur s'est produite lors de l'inscription. Veuillez réessayer.", "inscription.php");
-		}
+		else message_redirect("Nom déjà utilisé", "inscription.php");
 
 		$stmt->closeCursor();
 	}
