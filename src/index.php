@@ -23,7 +23,7 @@ $stmt = $bdd->prepare("SELECT tra.id_trajet, vi1.nom_ville as ville_d, vi2.nom_v
 	<br/>
 	<fieldset>
 		<legend> Derniers covoiturages proposés </legend>
-		<select name="trajet" size="10">
+		<select name="id" size="10">
 		<?php
 			foreach($data as $d)
 			{
