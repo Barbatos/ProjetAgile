@@ -300,3 +300,21 @@ function genererCode()
 	return $code;
 }	
 
+function compterPlacesDispo($idTrajet){
+	global $bdd;
+
+	$stmt = $bdd->prepare("SELECT NB_PLACE FROM TRAJET WHERE ID_TRAJET = :id");
+	$stmt->bindValue(':id', $idTrajet);
+	$stmt->execute();
+	$nbPlaces = $stmt->fetch(PDO::FETCH_OBJ);
+	$stmt->closeCursor();
+
+	$stmt = $bdd->prepare("SELECT COUNT(*) AS nb FROM PASSAGER WHERE ID_TRAJET = :trajet AND DEMANDE_VALIDEE = :valide");
+	$stmt->bindValue(':trajet', $idTrajet);
+	$stmt->bindValue(':valide', 1);
+	$stmt->execute();
+	$nbPlacesPrises = $stmt->fetch(PDO::FETCH_OBJ);
+	$stmt->closeCursor();
+
+	return $nbPlaces->NB_PLACE - $nbPlacesPrises->nb;
+}
