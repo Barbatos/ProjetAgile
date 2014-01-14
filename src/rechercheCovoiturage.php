@@ -3,6 +3,10 @@ require_once('includes/init.php');
 $erreur = '';
 $erreurBool = true;
 
+if(!est_connecte()){
+	message_redirect("Vous devez être connecté pour voir cette page !", "index.php");
+}
+
 if(P('rechercheCovoiturage')){
 	if(!P('villeD')){
 		$erreur = $erreur .'Vous n\'avez pas saisi une ville de départ.<br/>'; 

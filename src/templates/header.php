@@ -1,7 +1,7 @@
  <!DOCTYPE html>
 <html lang="fr">
 	<head>
-		<title>Covoiturage</title>
+		<title>Covoituragile</title>
 			<!-- On ouvre la fenêtre à la largeur de l'écran -->
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
 			<!-- Intégration du CSS Bootstrap -->
@@ -20,7 +20,7 @@
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="index.php">Covoiturage</a>
+          <a class="navbar-brand" href="index.php">Covoituragile</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -32,6 +32,7 @@
             <?php if(est_connecte()){ ?>
             <li <?php if($pageActive == "Compte") echo 'class="active"' ?>><a href="compte.php">Mon compte</a></li>
             <li><a href="deconnexion.php">Déconnexion</a></li>
+            <li><a>Bonjour <?php echo $_SESSION['prenom'] ?> !</a></li>
             <?php } else { ?>
             <li <?php if($pageActive == "Inscription") echo 'class="active"' ?>><a href="inscription.php">Inscription</a></li>
             <li <?php if($pageActive == "Connexion") echo 'class="active"' ?>><a href="connexion.php">Connexion</a></li>

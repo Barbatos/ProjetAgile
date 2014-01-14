@@ -7,6 +7,10 @@ if(!G('id')){
 	message_redirect("L'adresse URL est incorrecte !", "index.php");
 }
 
+if(!est_connecte()){
+	message_redirect("Vous devez être connecté pour voir cette page !", "index.php");
+}
+
 if(P()){
 	if(P('demanderPlace')){
 		$stmt = $bdd->prepare("SELECT * FROM PASSAGER WHERE ID_TRAJET = :trajet AND ID_UTILISATEUR = :utilisateur");
@@ -51,12 +55,6 @@ if(P()){
 	}
 
 	if(P('accepter') && P('utilisateur')){
-		$stmt = $bdd->prepare('UPDATE PASSAGER SET DEMANDE_VALIDEE = :validation WHERE ID_UTILISATEUR = :user AND ID_TRAJET = :trajet');
-		$stmt->bindValue(':validation', 1);
-		$stmt->bindValue(':user', P('utilisateur'));
-		$stmt->bindValue(':trajet', G('id'));
-		$stmt->execute();
-		
 		$code = genererCode();
 		mailTo_info(P('utilisateur'), $code);
 
@@ -65,8 +63,13 @@ if(P()){
 		$stmt->bindValue(':user', P('utilisateur'));
 		$stmt->bindValue(':trajet', G('id'));
 		$stmt->execute();
-		
 		$stmt->closeCursor();
+
+		$stmt = $bdd->prepare('UPDATE PASSAGER SET DEMANDE_VALIDEE = :validation WHERE ID_UTILISATEUR = :user AND ID_TRAJET = :trajet');
+		$stmt->bindValue(':validation', 1);
+		$stmt->bindValue(':user', P('utilisateur'));
+		$stmt->bindValue(':trajet', G('id'));
+		$stmt->execute();
 
 		message_redirect('La demande de ce passager a bien été validée !', 'voirtrajet.php?id='.G('id'));
 	}
