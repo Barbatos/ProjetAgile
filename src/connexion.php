@@ -18,7 +18,8 @@ if(P()){
 		else {
 			$_SESSION['id'] = $data->ID_UTILISATEUR;
 			$_SESSION['level'] = $data->ID_TYPE;
-
+			$_SESSION['prenom'] = $data->PRENOM;
+ 
 			message_redirect("Vous êtes maintenant connecté au site. :)", "index.php", 1);
 		}
 	}

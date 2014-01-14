@@ -17,7 +17,7 @@ $data = $stmt->fetchAll(PDO::FETCH_OBJ);
 $stmt->closeCursor();
 ?>
 
-<div id="titre"><h1>Bienvenue sur Covoiturage.lol</h1></div><br />
+<div id="titre"><h1>Bienvenue sur Covoituragile</h1></div><br />
 
 <legend>Derniers covoiturages proposés</legend>
 
