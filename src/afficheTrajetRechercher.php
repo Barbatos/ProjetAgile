@@ -1,3 +1,8 @@
+<?php 
+
+require_once('templates/header.php');
+?>
+
 <table>
 	<thead>
 		<tr>
@@ -12,18 +17,23 @@
 	<body>
 <?php
 	foreach($resultat as $trajet){
-		if($trajet['tr.nb_place_occupe'] < $trajet['tr.nb_place'])
+		if($trajet['NB_PLACE_OCCUPE'] < $trajet['NB_PLACE'])
 ?>
 		<tr>
 			<td><?php echo $trajet['villeDepart'];?></td>
 			<td><?php echo $trajet['villeArriver'];?></td>
-			<td><?php echo $trajet['tr.prix'];?></td>
-			<td><?php echo $trajet['tr.date_trajet'];?></td>
-			<td><?php echo $trajet['tr.nb_place'];?></td>
-			<td><a href="voirtrajet.php?id=<?php echo $trajet['tr.id'];?>" title="Detail du covoiturage">Detail</a></td>
+			<td><?php echo $trajet['PRIX'];?></td>
+			<td><?php echo $trajet['DATE_TRAJET'];?></td>
+			<td><?php echo $trajet['NB_PLACE'];?></td>
+			<td><a href="voirtrajet.php?id=<?php echo $trajet['ID_TRAJET'];?>" title="Detail du covoiturage">Detail</a></td>
 		</tr>
 <?php
 	}
 ?>
 	</body>
 </table>
+
+<?php 
+
+require_once('templates/footer.php');
+?>
